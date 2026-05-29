@@ -52,6 +52,8 @@ https://github.com/wp746/prototype-reconstruction-system/archive/refs/heads/main
 - [视频分析模块](docs/video-analysis-module.md)
 - [Agent 职责卡](docs/agent-cards.md)
 - [角色资产板固定模板 V2](templates/character-asset-board-template-v2.md)
+- [场景资产板固定模板 V1](templates/scene-asset-board-template-v1.md)
+- [道具资产板固定模板 V1](templates/prop-asset-board-template-v1.md)
 - [Markdown 交接模板](templates/handoff-template.md)
 - [JSON 交接模板](templates/handoff-template.json)
 - [JSON Schema](schemas/handoff.schema.json)
@@ -154,7 +156,7 @@ compliance_risks
 backend_instructions
 ```
 
-### 5. 角色资产板固定模板
+### 5. 资产板固定模板
 
 所有角色类 Image2 资产提示词必须使用 `WHITE_HERO_FULLBODY_TURNAROUND_TEMPLATE`，模板见 [templates/character-asset-board-template-v2.md](templates/character-asset-board-template-v2.md)。
 
@@ -168,6 +170,12 @@ backend_instructions
 ```
 
 其中 `M02 / 全身转面` 是硬规则：必须是头顶到鞋底完整可见的四个全身角度，禁止半身、胸像、腰部裁切、只画头肩或只画上半身。后端交付包里的 `CHAR_*` 资产板不得再使用旧式“半身视图条”或松散拼贴版式。
+
+所有场景类 Image2 资产提示词必须使用 `WHITE_SCENE_NINE_VIEW_LABEL_TEMPLATE`，模板见 [templates/scene-asset-board-template-v1.md](templates/scene-asset-board-template-v1.md)。场景板必须有可见稳定标签：`V01`-`V09`、`MAP`、`ENTRANCE`、`EXIT`、`CAM_A`、`CAM_B`、`CAM_C`、`CHAR_ZONE`、`PROP_ANCHOR`、`LIGHT_DIR`、`NO_DRIFT`。
+
+所有道具类 Image2 资产提示词必须使用 `WHITE_PROP_MULTI_VIEW_LABEL_TEMPLATE`，模板见 [templates/prop-asset-board-template-v1.md](templates/prop-asset-board-template-v1.md)。道具板必须有可见稳定标签：`P01`-`P08`、`REFERENCE USE`、`@PROP_CODE`、`HAND`、`SCENE_ANCHOR`、`DO_NOT_CHANGE`。
+
+这些资产板标签是生产引用标签，不属于随机画面文字。Seedance 提示词应按这些标签引用资产局部，例如 `use @图片2 V04 CAMERA A`、`use @图片3 P06 HAND LOGIC`。
 
 ### 6. 校验脚本和 QA 门禁
 
@@ -247,6 +255,8 @@ Reference Intake
 │   └── validate_handoff.py
 └── templates/
     ├── character-asset-board-template-v2.md
+    ├── prop-asset-board-template-v1.md
+    ├── scene-asset-board-template-v1.md
     ├── handoff-template.json
     └── handoff-template.md
 ```
@@ -259,7 +269,7 @@ Reference Intake
 - CHANGELOG：记录本次变更原因、影响模块和校验结果。
 - SOP / Agent Cards：如果工作流或角色职责变化，必须同步。
 - Templates / Schema / Validator：如果交接字段变化，三者必须一起改。
-- Character Asset Template：如果角色资产板版式优化，必须同步模板、SOP、README 和既有提示词包。
+- Asset Board Templates：如果角色、场景或道具资产板版式优化，必须同步模板、SOP、README 和既有提示词包。
 - QA Checklist：如果新增风险、字段或后端约束，必须同步检查项。
 
 这条规则是为了保证后期持续迭代时，文档、接口和校验器不会各说各话。

@@ -27,6 +27,8 @@
 
 角色类 Image2 资产提示词必须使用 `WHITE_HERO_FULLBODY_TURNAROUND_TEMPLATE`，固定模板见 [templates/character-asset-board-template-v2.md](../templates/character-asset-board-template-v2.md)。后端或提示词工厂不得再输出松散拼贴式角色板、半身视图条或缺脚的转面图。
 
+场景类 Image2 资产提示词必须使用 `WHITE_SCENE_NINE_VIEW_LABEL_TEMPLATE`，固定模板见 [templates/scene-asset-board-template-v1.md](../templates/scene-asset-board-template-v1.md)。道具类 Image2 资产提示词必须使用 `WHITE_PROP_MULTI_VIEW_LABEL_TEMPLATE`，固定模板见 [templates/prop-asset-board-template-v1.md](../templates/prop-asset-board-template-v1.md)。场景和道具资产板必须显示稳定标签，供 Seedance 2.0 后续按剧情引用局部资产。
+
 ## 3. 主流程
 
 ### P1 Reference Intake
@@ -219,3 +221,30 @@ A11 检查：
 - 把禁止项、红叉、反例图或品牌反例作为画面模块展示。
 
 中文角色资产板只使用中文短标签，除 A 编号和角色代码外不要出现英文；英文角色资产板只使用英文短标签，不渲染中文标签。
+
+## 7. 场景资产板生成规则
+
+所有 `SCENE_*` 场景资产板必须套用 `WHITE_SCENE_NINE_VIEW_LABEL_TEMPLATE`：
+
+- 16:9 横向白底或近白底。
+- 顶部 5-7% 为标题栏，必须显示 `A[编号] / SCENE_CODE / 场景名`。
+- 中部为 3x3 九视角网格，每格左上角必须有大号稳定标签。
+- 必须包含 `V01 建立`、`V02 入口`、`V03 出口/反向`、`V04 机位A`、`V05 机位B`、`V06 机位C`、`V07 关键物`、`V08 光线`、`V09 尺度`。
+- 底部必须包含 `MAP / 俯视图` 和引用标签：`ENTRANCE`、`EXIT`、`CAM_A`、`CAM_B`、`CAM_C`、`CHAR_ZONE`、`PROP_ANCHOR`、`LIGHT_DIR`、`NO_DRIFT`。
+- 同一个场景板只控制一个空间，不混入无关地点。
+- 场景板只使用无脸灰色人形、背影或位置标记，不生成清晰主角脸。
+
+场景资产板标签是资产引用接口，不是随机字幕。Seedance 提示词可以按 `@图片2 V04 CAMERA A`、`@图片2 MAP PROP_ANCHOR` 引用。
+
+## 8. 道具资产板生成规则
+
+所有 `PROP_*` 道具资产板必须套用 `WHITE_PROP_MULTI_VIEW_LABEL_TEMPLATE`：
+
+- 16:9 横向白底或近白底。
+- 顶部 5-7% 为标题栏，必须显示 `A[编号] / PROP_CODE / 道具名`。
+- 必须包含 `P01 主图`、`P02 正侧`、`P03 背面/顶面/三分之二`、`P04 材质`、`P05 尺度`、`P06 持握`、`P07 状态`、`P08 场景锚点`。
+- 底部必须包含 `REFERENCE USE`、`@PROP_CODE`、`HAND`、`SCENE_ANCHOR`、`DO_NOT_CHANGE`。
+- 重要道具默认一张板只做一个 `PROP_*`；多道具板只用于次要道具，且每个道具必须有大号 `PROP_*` 编号。
+- 同一道具在所有视图中形状、比例、材质、颜色和可读文字规则不能漂移。
+
+道具资产板标签是资产引用接口，不是随机字幕。Seedance 提示词可以按 `@图片3 P06 HAND LOGIC`、`@图片3 P07 STATE`、`@图片3 REFERENCE USE` 引用。

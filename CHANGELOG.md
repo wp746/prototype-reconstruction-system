@@ -5,6 +5,8 @@
 - 固定角色资产板模板为 `WHITE_HERO_FULLBODY_TURNAROUND_TEMPLATE`。
 - 新增 `templates/character-asset-board-template-v2.md`，明确左大主全身、顶部完整全身转面、右侧脸部表情、下方动作材质色卡版式。
 - 更新 README、SOP 和 Agent Cards，要求所有 `CHAR_*` Image2 资产提示词默认套用角色资产板固定模板 V2。
+- 固定场景资产板模板为 `WHITE_SCENE_NINE_VIEW_LABEL_TEMPLATE`，要求 `V01`-`V09`、`MAP`、`CAM_A/B/C`、`CHAR_ZONE`、`PROP_ANCHOR`、`LIGHT_DIR`、`NO_DRIFT` 等可见稳定标签。
+- 固定道具资产板模板为 `WHITE_PROP_MULTI_VIEW_LABEL_TEMPLATE`，要求 `P01`-`P08`、`REFERENCE USE`、`@PROP_CODE`、`HAND`、`SCENE_ANCHOR`、`DO_NOT_CHANGE` 等可见稳定标签。
 
 ## v0.1.0 - 2026-05-29
 
