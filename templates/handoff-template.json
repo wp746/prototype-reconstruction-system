@@ -1,0 +1,257 @@
+{
+  "project_lock": {
+    "project": "Prototype Reconstruction Sample",
+    "format": "creative_short",
+    "duration": 45,
+    "aspect_ratio": "9:16",
+    "platform": "short_video",
+    "target_model_platform": "Image2 + Seedance 2.0",
+    "remake_boundary": "method_remake",
+    "target_style": "live_action_realistic",
+    "language": "zh-CN",
+    "delivery_target": "backend_handoff"
+  },
+  "source_lock": {
+    "sources": [
+      {
+        "source": "https://example.com/reference-video",
+        "type": "video_link",
+        "owner": "unknown",
+        "permission": "reference_method_only",
+        "reuse_boundary": "Preserve shot logic, rhythm, camera grammar, lighting motivation, and emotional structure only.",
+        "notes": "Do not copy identifiable characters, logos, dialogue, music, exact scene design, or IP symbols."
+      }
+    ],
+    "forbidden_copy_items": [
+      "original dialogue",
+      "original subtitles",
+      "original music",
+      "logos",
+      "celebrity faces",
+      "brand packaging",
+      "recognizable IP symbols",
+      "exact scene design"
+    ]
+  },
+  "reference_summary": {
+    "opening_hook": "Detail-first reveal creates curiosity.",
+    "setup": "The protagonist enters a visually constrained space.",
+    "development": "A prop changes the character's understanding of the situation.",
+    "turning_point": "The camera movement reveals the hidden meaning.",
+    "payoff": "A clean final image resolves the emotional question.",
+    "ending_image": "Locked frame with new symbolic object."
+  },
+  "media_probe": {
+    "duration": 45,
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "codec": "h264",
+    "has_audio": true,
+    "aspect_ratio_detected": "9:16",
+    "analysis_mode": "standard_16"
+  },
+  "frame_sampling_plan": {
+    "strategy": ["uniform", "scene_boundary", "audio_aligned"],
+    "target_frame_count": 16,
+    "timestamps": [4, 8, 12, 16, 20, 24, 28, 32],
+    "reason": "Uniform frames establish visual style; scene-boundary and audio-aligned frames catch edits, dialogue beats, and action transitions."
+  },
+  "frame_observations": [
+    {
+      "frame_id": "FR_001",
+      "timestamp": 4,
+      "linked_shot": "REF_001",
+      "subject": "Partially framed protagonist hand approaching the key prop.",
+      "environment": "Interior table surface with shallow background depth.",
+      "shot_size": "extreme close-up",
+      "angle": "eye-level detail angle",
+      "composition": "center-safe prop with hand entering from frame edge",
+      "lighting": "soft side light from frame left",
+      "color_texture": "muted neutral palette, tactile matte surfaces",
+      "style": "cinematic realistic detail shot",
+      "mood": "quiet curiosity",
+      "visible_text_or_logo": "none",
+      "risk_flags": []
+    }
+  ],
+  "audio_transcript": [
+    {
+      "start": 0,
+      "end": 8,
+      "speaker": "none",
+      "text": "",
+      "confidence": 1,
+      "audio_event": "low room tone with a small tactile sound cue"
+    }
+  ],
+  "audio_segments": [
+    {
+      "start": 0,
+      "end": 8,
+      "summary": "Silent opening beat uses room tone and tactile sound to focus attention.",
+      "tags": ["silence", "tension", "tactile"],
+      "dialogue_function": "No dialogue; silence creates attention.",
+      "rhythm_function": "Slow setup with one sound cue near the action.",
+      "confidence": "high"
+    }
+  ],
+  "multimodal_sync": [
+    {
+      "timecode": "00:00-00:08",
+      "visual_event": "Hand approaches prop during slow push-in.",
+      "audio_event": "Room tone continues; tactile cue lands near hand movement.",
+      "edit_signal": "Cut on hand movement.",
+      "narrative_function": "Establish curiosity and controlled tension.",
+      "remake_instruction": "Keep the sound function and camera timing, replace the prop and setting."
+    }
+  ],
+  "shot_ledger": [
+    {
+      "shot_id": "REF_001",
+      "timecode": "00:00-00:08",
+      "duration": 8,
+      "narrative_function": "Open with a detail-first mystery reveal.",
+      "shot_size": "extreme close-up to close-up",
+      "angle": "eye-level, slight profile",
+      "composition": "center-safe detail with shallow background depth",
+      "camera_movement": "slow push-in",
+      "action": "A hand approaches the key prop without touching it.",
+      "blocking": "Single character remains partially out of frame.",
+      "props": ["PROP_REFERENCE_KEY"],
+      "lighting": "soft motivated side light",
+      "color": "muted neutral palette with one accent color",
+      "vfx": "none",
+      "sound": "low room tone with a small tactile sound cue",
+      "edit_in": "hard cut from black",
+      "edit_out": "cut on hand movement",
+      "emotional_function": "Curiosity and controlled tension",
+      "dialogue_function": "No dialogue; silence creates attention."
+    }
+  ],
+  "preservation_variation_map": [
+    {
+      "reference_element": "Detail-first opening reveal",
+      "preserve_logic": "Use a close detail to create curiosity before revealing identity.",
+      "replace_with": "New original prop and new character context.",
+      "reason": "The reveal structure is transferable, the original object design is not.",
+      "risk": "low",
+      "new_prompt_rule": "Preserve the reference shot logic, not the original prop design, logo, dialogue, music, or exact scene identity."
+    }
+  ],
+  "new_production_mapping": [
+    {
+      "reference_shot": "REF_001",
+      "new_segment": "SEG_001",
+      "new_beat": "A realistic protagonist notices a newly designed symbolic prop in a different setting.",
+      "new_assets": ["CHAR_A", "SCENE_01", "PROP_01"],
+      "style_migration": "Convert animated exaggeration into restrained live-action blocking and natural material response.",
+      "dialogue_function": "No spoken line; let silence and tactile sound hold attention.",
+      "sound_strategy": "Use original sound function only: low room tone plus one new tactile cue.",
+      "do_not_copy": "Do not copy the original characters, prop design, dialogue, music, logo, or exact scene layout."
+    }
+  ],
+  "asset_matrix": [
+    {
+      "code": "CHAR_A",
+      "type": "character",
+      "name": "New Protagonist",
+      "must_preserve": "Original new identity and wardrobe continuity.",
+      "may_clarify": "Facial expression, posture, age range.",
+      "forbidden_drift": "Do not resemble original reference character or any real celebrity."
+    },
+    {
+      "code": "SCENE_01",
+      "type": "scene",
+      "name": "New Main Interior",
+      "must_preserve": "Spatial anchors and motivated side light.",
+      "may_clarify": "Texture and set dressing.",
+      "forbidden_drift": "Do not recreate the original reference location."
+    },
+    {
+      "code": "PROP_01",
+      "type": "prop",
+      "name": "New Symbolic Prop",
+      "must_preserve": "Shape continuity and scale in hand.",
+      "may_clarify": "Material and surface wear.",
+      "forbidden_drift": "No logos, copied packaging, or original prop silhouette."
+    }
+  ],
+  "scene_geography": [
+    {
+      "code": "SCENE_01",
+      "location": "New Main Interior",
+      "fixed_anchors": ["door at rear depth", "table in center-safe zone"],
+      "light": "soft side light from frame left",
+      "entrances_exits": "Character enters from rear depth and stays camera right.",
+      "camera_safe_zones": "9:16 center third for face and prop."
+    }
+  ],
+  "prop_ui_text_matrix": [
+    {
+      "code": "PROP_01",
+      "item": "New Symbolic Prop",
+      "duty": "Physical story object",
+      "exact_text": false,
+      "generation_mode": "image2_asset",
+      "post_mode": "none"
+    },
+    {
+      "code": "UI_TEXT_01",
+      "item": "Optional title card",
+      "duty": "Exact readable text only if needed",
+      "exact_text": true,
+      "generation_mode": "post_or_ui_plate",
+      "post_mode": "post"
+    }
+  ],
+  "segment_plan": [
+    {
+      "segment": "SEG_001",
+      "runtime": 8,
+      "beat": "Detail-first reveal of the new prop.",
+      "function": "Opening hook",
+      "references_needed": ["CHAR_A", "SCENE_01", "PROP_01"],
+      "in_state": "Prop is already placed on the table; protagonist is partially out of frame.",
+      "action": "Camera slowly pushes in as the hand approaches but does not touch the prop.",
+      "out_state": "Hand stops near prop; protagonist attention is locked.",
+      "next_handoff": "SEG_002",
+      "complexity_risk": "low",
+      "fix": "If hand contact fails, keep the hand hovering and move contact to next segment."
+    }
+  ],
+  "sound_post_duties": [
+    {
+      "code": "POST_SOUND_01",
+      "duty": "sound_design",
+      "timing": "SEG_001",
+      "description": "Low room tone plus one original tactile sound cue created for the new prop.",
+      "owner": "post",
+      "notes": "Do not copy original music or sound asset."
+    }
+  ],
+  "compliance_risks": [
+    {
+      "risk_id": "RISK_001",
+      "level": "low",
+      "source_element": "Reference opening prop reveal",
+      "risk_type": "similarity",
+      "replace_with": "New original prop silhouette and new scene geography.",
+      "prompt_rule": "Preserve only the detail-first reveal logic.",
+      "status": "resolved"
+    }
+  ],
+  "backend_instructions": {
+    "target_pipeline": "image2_seedance_2_0",
+    "handoff_mode": "asset_storyboard_seedance_prompt_factory",
+    "front_end_boundary": "deconstruction_mapping_compliance_handoff_only",
+    "backend_duties": [
+      "image2_asset_prompts",
+      "image2_storyboard_control_boards",
+      "seedance_2_0_video_prompts",
+      "generation_review",
+      "repair_prompts",
+      "postproduction_execution"
+    ]
+  }
+}

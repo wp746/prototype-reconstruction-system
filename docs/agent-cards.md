@@ -1,0 +1,85 @@
+# Agent Cards
+
+## A0 总控制片 Agent
+
+- 职责：管理项目状态、调用子 Agent、判断是否进入下一阶段。
+- 输入：用户 brief、参考片、当前交接包状态。
+- 输出：阶段路由、缺失项列表、确认点。
+- 通过标准：每个阶段都有明确 owner、输入、输出和阻塞项。
+
+## A1 输入与版权溯源 Agent
+
+- 职责：记录来源、权限、复用边界、目标平台和禁止复制项。
+- 输入：视频链接或本地路径、新主题、目标风格、目标时长、画幅、平台。
+- 输出：`source_lock`。
+- 通过标准：来源可追踪；禁止复制项明确；无法访问的参考片被标记为 blocked。
+
+## A2 视频切段 Agent
+
+- 职责：运行视频分析模块，把参考片拆成可验证的叙事段落和镜头。
+- 输入：参考片。
+- 输出：`media_probe`、`frame_sampling_plan`、`frame_observations`、`multimodal_sync`、`reference_summary`、`shot_ledger` 基础时间线。
+- 通过标准：每个镜头有 `shot_id`、`timecode`、`duration`，且至少有抽帧、视觉变化、运镜起止或音频节拍证据。
+
+## A3 逐镜拆解 Agent
+
+- 职责：基于单帧观察和序列观察，分析每镜的画面、构图、运镜、表演、光影、VFX 和剪辑。
+- 输入：`shot_ledger` 基础时间线、`frame_observations`、`multimodal_sync`。
+- 输出：补全后的 `shot_ledger`。
+- 通过标准：每镜都能解释叙事功能和情绪功能。
+
+## A4 叙事与台词功能 Agent
+
+- 职责：提炼信息释放、台词功能、情绪转折和节奏结构。
+- 输入：逐镜拆解、`audio_transcript`、`audio_segments`。
+- 输出：每镜 `dialogue_function`、`narrative_function`、`emotional_function`，以及待人工确认的低置信台词。
+- 通过标准：不复制原台词，只保留台词在剧情中的功能。
+
+## A5 风格与资产 Agent
+
+- 职责：提取角色类型、场景结构、道具系统、服化道和视觉风格。
+- 输入：逐镜拆解、新片 brief。
+- 输出：`asset_matrix`、`scene_geography`、`prop_ui_text_matrix`。
+- 通过标准：所有复用资产都有稳定资产码。
+
+## A6 声音与节奏 Agent
+
+- 职责：拆解音乐、环境声、音效、静默、节拍密度和剪辑韵律。
+- 输入：参考片音轨、`audio_transcript`、`audio_segments`、逐镜时间线。
+- 输出：`sound_post_duties` 和每段声音策略。
+- 通过标准：原音乐不被复用；声音功能被转译为新片可执行策略。
+
+## A7 保留/变化映射 Agent
+
+- 职责：把参考片拆为可保留方法和必须替换表达。
+- 输入：逐镜拆解、资产分析、合规初筛。
+- 输出：`preservation_variation_map`。
+- 通过标准：每个高风险元素都有替换方案和新 prompt 规则。
+
+## A8 新片映射 Agent
+
+- 职责：把参考片镜头方法迁移到新主题、新角色、新场景、新道具和新风格。
+- 输入：`preservation_variation_map`、新片 brief、资产矩阵。
+- 输出：`new_production_mapping`、`segment_plan`。
+- 通过标准：每个新片 segment 都有 in state、action、out state 和资产绑定。
+
+## A9 合规与风险 Agent
+
+- 职责：拦截版权、肖像、品牌、IP、音乐和过度相似风险。
+- 输入：完整交接包草稿。
+- 输出：`compliance_risks`、替换建议、风险等级。
+- 通过标准：没有未处理的 high risk 项。
+
+## A10 后端交接 Agent
+
+- 职责：生成 Markdown 人审版和 JSON 机器版。
+- 输入：通过 A9 的交接包。
+- 输出：`handoff.md`、`handoff.json`。
+- 通过标准：JSON 符合 schema；Markdown 结构完整；后端指令明确。
+
+## A11 QA Agent
+
+- 职责：检查完整性、可生产性、Seedance 分段、资产绑定和后端字段。
+- 输入：Markdown + JSON 交接包。
+- 输出：QA 报告。
+- 通过标准：视频分析字段完整；所有 error 被修复；warning 有明确接受理由。
