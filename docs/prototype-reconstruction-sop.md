@@ -248,3 +248,22 @@ A11 检查：
 - 同一道具在所有视图中形状、比例、材质、颜色和可读文字规则不能漂移。
 
 道具资产板标签是资产引用接口，不是随机字幕。Seedance 提示词可以按 `@图片3 P06 HAND LOGIC`、`@图片3 P07 STATE`、`@图片3 REFERENCE USE` 引用。
+
+## 9. 故事板生成规则
+
+所有 `STORYBOARD_*` 故事板 Image2 提示词必须套用 `WHITE_STORYBOARD_SHEET_TEMPLATE`：
+
+- 16:9 横向白底，手绘线稿风格，不是成片剧照。
+- 必须包含 10 个固定段落，按顺序：`[PROJECT CARD]`、`[CONTINUITY HEADER]`、`[SUBJECTS]`、`[SCENE]`、`[STORYBOARD FORMAT]`、`[VISUAL LANGUAGE]`、`[ACTION DNA]`、`[SHOT DESIGN RULES]`、`[PANEL BEAT MAP]`、`[NEGATIVE]`。
+- 风格包（Style Packet）必须写成一段完整的风格声明，不要关键词堆砌。
+- `[SUBJECTS]` 中每个角色必须包含动作语言（motion language），不只是外观描述。
+- `[PANEL BEAT MAP]` 每格一行：编号 + 景别 + 动作一句话。不要长描写。
+- 每格都必须包含动作或动作延续。不要重复对峙格、静止格和空拍。
+- 红色框线 = 镜头画框，蓝色箭头 = 运动/力量方向，绿色标签 = 资产码引用。
+- 格子编号放在画面外，每格下方加短镜头标签和微小动作说明。
+
+故事板引用资产板模块标签：
+
+- 角色：`use @图片1 M03 FACE CLOSE-UP and M05 ACTION HAND PROP LOGIC`
+- 场景：`use @图片2 V04 CAMERA A and MAP/CHAR_ZONE`
+- 道具：`use @图片3 P06 HAND LOGIC and P07 STATE`

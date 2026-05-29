@@ -44,6 +44,7 @@
 - 角色资产硬规则：`M02 / 全身转面` 必须是 4 个头顶到鞋底完整可见的全身角度，禁止半身、胸像、腰部裁切和只画头肩。
 - 场景资产硬规则：必须有 `V01`-`V09`、`MAP`、`CAM_A/B/C`、`CHAR_ZONE`、`PROP_ANCHOR`、`LIGHT_DIR`、`NO_DRIFT` 等可见稳定标签。
 - 道具资产硬规则：必须有 `P01`-`P08`、`REFERENCE USE`、`@PROP_CODE`、`HAND`、`SCENE_ANCHOR`、`DO_NOT_CHANGE` 等可见稳定标签。
+- 故事板硬规则：必须使用 `WHITE_STORYBOARD_SHEET_TEMPLATE`，包含 10 个固定段落，每格 beat 用"景别 + 动作"一句话，角色带动作语言，风格包写成完整声明。
 
 ## A6 声音与节奏 Agent
 
@@ -78,7 +79,7 @@
 - 职责：生成 Markdown 人审版和 JSON 机器版。
 - 输入：通过 A9 的交接包。
 - 输出：`handoff.md`、`handoff.json`。
-- 通过标准：JSON 符合 schema；Markdown 结构完整；后端指令明确；角色类 Image2 提示词已套用 [角色资产板固定模板 V2](../templates/character-asset-board-template-v2.md)，场景和道具类 Image2 提示词已套用固定标签模板。
+- 通过标准：JSON 符合 schema；Markdown 结构完整；后端指令明确；角色类 Image2 提示词已套用 [角色资产板固定模板 V2](../templates/character-asset-board-template-v2.md)，场景、道具和故事板类 Image2 提示词已套用固定标签模板。
 
 ## A11 QA Agent
 

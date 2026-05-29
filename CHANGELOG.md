@@ -7,6 +7,8 @@
 - 更新 README、SOP 和 Agent Cards，要求所有 `CHAR_*` Image2 资产提示词默认套用角色资产板固定模板 V2。
 - 固定场景资产板模板为 `WHITE_SCENE_NINE_VIEW_LABEL_TEMPLATE`，要求 `V01`-`V09`、`MAP`、`CAM_A/B/C`、`CHAR_ZONE`、`PROP_ANCHOR`、`LIGHT_DIR`、`NO_DRIFT` 等可见稳定标签。
 - 固定道具资产板模板为 `WHITE_PROP_MULTI_VIEW_LABEL_TEMPLATE`，要求 `P01`-`P08`、`REFERENCE USE`、`@PROP_CODE`、`HAND`、`SCENE_ANCHOR`、`DO_NOT_CHANGE` 等可见稳定标签。
+- 固定故事板模板为 `WHITE_STORYBOARD_SHEET_TEMPLATE`，要求 10 段结构、风格包完整声明、角色带动作语言、每格 beat 一句话。
+
 
 ## v0.1.0 - 2026-05-29
 
