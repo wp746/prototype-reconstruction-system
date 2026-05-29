@@ -51,6 +51,7 @@ https://github.com/wp746/prototype-reconstruction-system/archive/refs/heads/main
 - [原型重构多智能体 SOP](docs/prototype-reconstruction-sop.md)
 - [视频分析模块](docs/video-analysis-module.md)
 - [Agent 职责卡](docs/agent-cards.md)
+- [角色资产板固定模板 V2](templates/character-asset-board-template-v2.md)
 - [Markdown 交接模板](templates/handoff-template.md)
 - [JSON 交接模板](templates/handoff-template.json)
 - [JSON Schema](schemas/handoff.schema.json)
@@ -153,7 +154,22 @@ compliance_risks
 backend_instructions
 ```
 
-### 5. 校验脚本和 QA 门禁
+### 5. 角色资产板固定模板
+
+所有角色类 Image2 资产提示词必须使用 `WHITE_HERO_FULLBODY_TURNAROUND_TEMPLATE`，模板见 [templates/character-asset-board-template-v2.md](templates/character-asset-board-template-v2.md)。
+
+固定版式为：
+
+```text
+左侧超大主全身
++ 顶部中间 4 个完整全身转面
++ 右侧脸部特写和表情库
++ 下方动作、手部、道具、服装材质、色卡、连续性标签
+```
+
+其中 `M02 / 全身转面` 是硬规则：必须是头顶到鞋底完整可见的四个全身角度，禁止半身、胸像、腰部裁切、只画头肩或只画上半身。后端交付包里的 `CHAR_*` 资产板不得再使用旧式“半身视图条”或松散拼贴版式。
+
+### 6. 校验脚本和 QA 门禁
 
 内置无依赖 Python 校验脚本：
 
@@ -230,6 +246,7 @@ Reference Intake
 ├── scripts/
 │   └── validate_handoff.py
 └── templates/
+    ├── character-asset-board-template-v2.md
     ├── handoff-template.json
     └── handoff-template.md
 ```
@@ -242,6 +259,7 @@ Reference Intake
 - CHANGELOG：记录本次变更原因、影响模块和校验结果。
 - SOP / Agent Cards：如果工作流或角色职责变化，必须同步。
 - Templates / Schema / Validator：如果交接字段变化，三者必须一起改。
+- Character Asset Template：如果角色资产板版式优化，必须同步模板、SOP、README 和既有提示词包。
 - QA Checklist：如果新增风险、字段或后端约束，必须同步检查项。
 
 这条规则是为了保证后期持续迭代时，文档、接口和校验器不会各说各话。

@@ -40,7 +40,8 @@
 - 职责：提取角色类型、场景结构、道具系统、服化道和视觉风格。
 - 输入：逐镜拆解、新片 brief。
 - 输出：`asset_matrix`、`scene_geography`、`prop_ui_text_matrix`。
-- 通过标准：所有复用资产都有稳定资产码。
+- 通过标准：所有复用资产都有稳定资产码；所有 `CHAR_*` 角色资产必须声明使用 `WHITE_HERO_FULLBODY_TURNAROUND_TEMPLATE`。
+- 角色资产硬规则：`M02 / 全身转面` 必须是 4 个头顶到鞋底完整可见的全身角度，禁止半身、胸像、腰部裁切和只画头肩。
 
 ## A6 声音与节奏 Agent
 
@@ -75,7 +76,7 @@
 - 职责：生成 Markdown 人审版和 JSON 机器版。
 - 输入：通过 A9 的交接包。
 - 输出：`handoff.md`、`handoff.json`。
-- 通过标准：JSON 符合 schema；Markdown 结构完整；后端指令明确。
+- 通过标准：JSON 符合 schema；Markdown 结构完整；后端指令明确；角色类 Image2 提示词已套用 [角色资产板固定模板 V2](../templates/character-asset-board-template-v2.md)。
 
 ## A11 QA Agent
 

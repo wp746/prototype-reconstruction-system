@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- 固定角色资产板模板为 `WHITE_HERO_FULLBODY_TURNAROUND_TEMPLATE`。
+- 新增 `templates/character-asset-board-template-v2.md`，明确左大主全身、顶部完整全身转面、右侧脸部表情、下方动作材质色卡版式。
+- 更新 README、SOP 和 Agent Cards，要求所有 `CHAR_*` Image2 资产提示词默认套用角色资产板固定模板 V2。
+
 ## v0.1.0 - 2026-05-29
 
 - 初始化原型重构多智能体工作流系统。
