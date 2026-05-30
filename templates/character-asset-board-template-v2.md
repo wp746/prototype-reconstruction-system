@@ -48,6 +48,28 @@ It must not:
 - Show head-and-shoulder views only.
 - Be compressed by the face close-up or lower modules.
 
+## Multi-Style Style Lock Standard (双层架构风格锁规范)
+
+Every character prompt must contain a decoupled **Style Lock (风格锁)** block before the negative constraints:
+- **Constants (不变的渲染画质控制量)**: `平滑阴影、柔光处理、细节控制、纹理简约、高清晰度、边缘精致、渐变平滑、无噪点、无颗粒感、无人工痕迹、无高频细节、无脏乱纹理、无过度锐化、无斑驳、无杂乱细节` (smooth shadows, soft lighting, detail control, minimal texture, high definition, exquisite edges, smooth gradients, no noise, no graininess, no artificial marks, no high-frequency details, no messy textures, no over-sharpening, no mottling, no cluttered details).
+- **Variables (随角色与风格变化的物理参数)**:
+  - Medium descriptor (真人电影写实 vs 高精度日式动漫 vs 三维黏土潮玩 vs 超现实主义).
+  - Tactile physical textures and materials.
+  - Spatial and lighting atmosphere.
+  - Anti-mismatch lockout (e.g. 非游戏、非CG for realism).
+
+### 🎬 1. 真人电影写实 (Cinematic Realism)
+> `风格锁：真人电影写实，[极致的皮肤质感/微观毛孔]，[时空物理场景]，[照片级具体衣物材质与硬材质光泽]，平滑阴影、柔光处理、细节控制、纹理简约、高清晰度、边缘精致、渐变平滑、无噪点、无颗粒感、无人工痕迹、无高频细节、无脏乱纹理、无过度锐化、无斑驳、无杂乱细节。非游戏、非CG、非动漫脸。`
+
+### 🌸 2. 日式动漫 / 二次元 (Anime / 2D Cel-Shaded)
+> `风格锁：高精度日式动漫，[干净细腻的手绘平涂]，[经典二次元背景设计]，[线条清晰的特定服装与配饰描述]，平滑阴影、柔光处理、细节控制、纹理简约、高清晰度、边缘精致、渐变平滑、无噪点、无颗粒感、无人工痕迹、无高频细节、无脏乱纹理、无过度锐化、无斑驳、无杂乱细节。非三维、非CG、非写实照片、非真实人脸。`
+
+### 🧸 3. 美式卡通 / 三维风格化 (Cartoon / 3D Stylized / Art Toy)
+> `风格锁：三维风格化黏土潮玩质感，[极致细腻的亚光塑料/树脂外表]，[高饱和度糖果色背景]，[厚重有分量的服装与特定配件]，平滑阴影、柔光处理、细节控制、纹理简约、高清晰度、边缘精致、渐变平滑、无噪点、无颗粒感、无人工痕迹、无高频细节、无脏乱纹理、无过度锐化、无斑驳、无杂乱细节。非写实照片、非低面数CG、非扁平二次元。`
+
+### 🌌 4. 超现实主义 (Surrealism / Dreamcore)
+> `风格锁：超现实主义梦境艺术，[违背重力的悬浮与空间扭曲]，[梦境色彩渐变天幕]，[具有发光质感或半透明薄纱的物体材质]，平滑阴影、柔光处理、细节控制、纹理简约、高清晰度、边缘精致、渐变平滑、无噪点、无颗粒感、无人工痕迹、无高频细节、无脏乱纹理、无过度锐化、无斑驳、无杂乱细节。非传统纪实照片、非低画质噪点图。`
+
 ## Chinese Universal Prompt
 
 ```text
@@ -106,6 +128,8 @@ M07 / 色卡：
 
 M08 / 连续性标签：
 同一年龄、同一脸、同一体型、同一发型、同一服装、同一道具关系、同一气质。
+
+风格锁：[根据角色与风格类型选取并填入标准双层架构风格锁，锁定不变画质控制量与变化变量参数，如：真人电影写实风格锁]
 
 禁止项只作为提示词约束，不要展示在图里：不要换脸、不要换年龄、不要换体型、不要换发型、不要换服装、不要新增无关配饰、不要明星脸、不要随机职业、不要夸张表情、不要多角色、不要红叉示例、不要反例图、不要字幕、不要品牌字。
 ```
@@ -168,6 +192,8 @@ M07 / COLOR PALETTE:
 
 M08 / CONTINUITY NOTES:
 same age, same face, same body type, same hairstyle, same wardrobe, same prop relationship, same temperament.
+
+Style lock: [Select and fill standard decoupled style lock matching the art style and character, locking rendering constants and style variables]
 
 Negative constraints are prompt-only and must not appear as a visible image module: no face change, no age change, no body type change, no hairstyle change, no wardrobe change, no unrelated accessories, no celebrity face, no random profession, no exaggerated expression, no extra characters, no red-X examples, no forbidden example images, no subtitles, no brand text.
 ```

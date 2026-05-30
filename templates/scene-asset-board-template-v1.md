@@ -74,6 +74,8 @@ V08 / 光线：[光源、天气、阴影方向]
 V09 / 尺度：[无脸灰色人形/位置标记展示尺度和走位区]
 MAP / 俯视图：[俯视平面/地理图，标注 ENTRANCE、EXIT、CAM_A、CAM_B、CAM_C、CHAR_ZONE、PROP_ANCHOR、LIGHT_DIR、NO_DRIFT]
 
+风格锁：[根据场景与风格类型选取并填入标准双层架构风格锁，锁定不变画质控制量与变化变量参数，如：真人电影写实风格锁]
+
 硬规则：同一个SCENE只做一个空间，不混入无关地点；所有视角必须属于同一空间；门、柱、道路、平台、光线方向和道具锚点不能在不同格子漂移；只使用无脸灰色人形或位置标记，不生成清晰主角脸。
 ```
 
@@ -101,6 +103,8 @@ V07 / KEY DETAIL: [fixed key object or spatial identity detail]
 V08 / LIGHT: [light source, weather, shadow direction]
 V09 / SCALE: [faceless gray silhouettes or markers showing scale and blocking zones]
 MAP / TOP-DOWN: [top-down floor/geography plan labeled ENTRANCE, EXIT, CAM_A, CAM_B, CAM_C, CHAR_ZONE, PROP_ANCHOR, LIGHT_DIR, NO_DRIFT]
+
+Style lock: [Select and fill standard decoupled style lock matching the art style and scene, locking rendering constants and style variables]
 
 Hard rule: one SCENE board controls one space only; do not mix unrelated locations. All views must belong to the same geography. Doors, pillars, roads, platforms, light direction, and prop anchors must not drift between panels. Use faceless gray silhouettes or position markers only; do not create clear main-character faces.
 ```
