@@ -2,13 +2,26 @@
 
 ## Unreleased
 
-- 固定角色资产板模板为 `WHITE_HERO_FULLBODY_TURNAROUND_TEMPLATE`。
-- 新增 `templates/character-asset-board-template-v2.md`，明确左大主全身、顶部完整全身转面、右侧脸部表情、下方动作材质色卡版式。
-- 更新 README、SOP 和 Agent Cards，要求所有 `CHAR_*` Image2 资产提示词默认套用角色资产板固定模板 V2。
-- 固定场景资产板模板为 `WHITE_SCENE_NINE_VIEW_LABEL_TEMPLATE`，要求 `V01`-`V09`、`MAP`、`CAM_A/B/C`、`CHAR_ZONE`、`PROP_ANCHOR`、`LIGHT_DIR`、`NO_DRIFT` 等可见稳定标签。
-- 固定道具资产板模板为 `WHITE_PROP_MULTI_VIEW_LABEL_TEMPLATE`，要求 `P01`-`P08`、`REFERENCE USE`、`@PROP_CODE`、`HAND`、`SCENE_ANCHOR`、`DO_NOT_CHANGE` 等可见稳定标签。
-- 固定故事板模板为 `WHITE_STORYBOARD_SHEET_TEMPLATE`，要求 10 段结构、风格包完整声明、角色带动作语言、每格 beat 一句话。
+- (正在筹备中的下一版本优化内容)
 
+## v0.2.0 - 2026-05-31
+
+### 1. 核心升级：大师级“解耦风格锁”（Decoupled Style Lock）
+- **画质常数（不变层）**：提取出 16 个超高画质、防脏、防过度锐化的负反馈/正反馈约束常量（例如`平滑阴影、柔光处理、细节控制、无噪点、无过度锐化`等）。
+- **媒介/质感变量（变化层）**：解耦出电影写实、日系动漫、美式 3D 卡通、超现实画境 4 套预设公式，按需动态填入。
+- **模板升级**：将“解耦风格锁标准”深度融入 `templates/` 下的所有核心资产板模板中。
+
+### 2. 双语隔离协议（Bilingual Segregation Protocol）
+- 彻底禁止在同一个资产板内混排中英文标签。
+- 引入**纯中文标签版式**（使用`正面全身`、`场景示意图`等）和**纯英文标签版式**（使用`FRONT`、`MAP`等），满足出图时纯中文/纯英文输入的一致性要求。
+
+### 3. 视频编排（Seedance 2.0）与 12s 预算控制
+- 引入严格的 12 秒视频生成控制预算，明确 `0.0s - 3.0s`（In-state/动作诱导）与 `3.0s - 12.0s`（主体高保真运动及平滑出场）的精密时序编排。
+- 在 Image2 提示词模板中完全移除了结尾多余的 `--ar 16:9` 参数，避免解析器和生成器参数冲突，提供更纯净的提示词输出。
+
+### 4. 核心自动化脚本与文档库更新
+- 重构并硬编码 `/Users/wangpeng/.gemini/antigravity/brain/cc20ea06-5428-4a49-81a1-31107a6e40f0/scratch/generate_v3_package.py`，全量自动化生成符合 V2/V3 规范的新武侠和打工人原型重构交付包。
+- 升级全局 `README.md` 系统说明与 SOP 指引，确保系统架构与前沿实践百分百同步。
 
 ## v0.1.0 - 2026-05-29
 
