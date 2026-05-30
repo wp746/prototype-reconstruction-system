@@ -176,17 +176,33 @@ backend_instructions
 
 其中 `M02 / 全身转面` 是硬规则：必须是头顶到鞋底完整可见的四个全身角度，禁止半身、胸像、腰部裁切、只画头肩或只画上半身。后端交付包里的 `CHAR_*` 资产板不得再使用旧式“半身视图条”或松散拼贴版式。
 
-所有场景类 Image2 资产提示词必须使用 `WHITE_SCENE_NINE_VIEW_LABEL_TEMPLATE`，模板见 [templates/scene-asset-board-template-v1.md](templates/scene-asset-board-template-v1.md)。场景板必须有可见稳定标签：`V01`-`V09`、`MAP`、`ENTRANCE`、`EXIT`、`CAM_A`、`CAM_B`、`CAM_C`、`CHAR_ZONE`、`PROP_ANCHOR`、`LIGHT_DIR`、`NO_DRIFT`。
-    ├── storyboard-asset-board-template-v1.md
+所有场景类 Image2 资产提示词必须使用 `WHITE_SCENE_NINE_VIEW_LABEL_TEMPLATE`，模板见 [templates/scene-asset-board-template-v1.md](templates/scene-asset-board-template-v1.md)。场景板必须有可见 stable 标签：`V01`-`V09`、`MAP`、`ENTRANCE`、`EXIT`、`CAM_A`、`CAM_B`、`CAM_C`、`CHAR_ZONE`、`PROP_ANCHOR`、`LIGHT_DIR`、`NO_DRIFT`。
 
+所有道具类 Image2 资产提示词必须使用 `WHITE_PROP_MULTI_VIEW_LABEL_TEMPLATE`，模板见 [templates/prop-asset-board-template-v1.md](templates/prop-asset-board-template-v1.md)。道具板必须有可见 stable 标签：`P01`-`P08`、`REFERENCE USE`、`@PROP_CODE`、`HAND`、`SCENE_ANCHOR`、`DO_NOT_CHANGE`。
 
-所有道具类 Image2 资产提示词必须使用 `WHITE_PROP_MULTI_VIEW_LABEL_TEMPLATE`，模板见 [templates/prop-asset-board-template-v1.md](templates/prop-asset-board-template-v1.md)。道具板必须有可见稳定标签：`P01`-`P08`、`REFERENCE USE`、`@PROP_CODE`、`HAND`、`SCENE_ANCHOR`、`DO_NOT_CHANGE`。
-- [故事板固定模板 V1](templates/storyboard-asset-board-template-v1.md)
-
+所有故事板类 Image2 提示词必须使用 `WHITE_STORYBOARD_SHEET_TEMPLATE`，模板见 [templates/storyboard-asset-board-template-v1.md](templates/storyboard-asset-board-template-v1.md)。故事板必须采用 1x4 横向网格设计，并包含 10 个固定段落：`[PROJECT CARD]`、`[CONTINUITY HEADER]`、`[SUBJECTS]`、`[SCENE]`、`[STORYBOARD FORMAT]`、`[VISUAL LANGUAGE]`、`[ACTION DNA]`、`[SHOT DESIGN RULES]`、`[PANEL BEAT MAP]`、`[NEGATIVE]`。
 
 这些资产板标签是生产引用标签，不属于随机画面文字。Seedance 提示词应按这些标签引用资产局部，例如 `use @图片2 V04 CAMERA A`、`use @图片3 P06 HAND LOGIC`。
 
-### 6. 校验脚本和 QA 门禁
+### 6. 大师级双层架构风格锁标准 (Master Decoupled Style Lock Standard)
+
+为了实现画面画质控制的绝对稳定，系统已全面引入**双层风格锁架构（Decoupled Style Lock Architecture）**，在所有 `image2` 提示词中强制解耦：
+- **不变常量（超高清画质渲染控制）**：固定拼接 `平滑阴影、柔光处理、细节控制、纹理简约、高清晰度、边缘精致、渐变平滑、无噪点、无颗粒感、无人工痕迹、无高频细节、无脏乱纹理、无过度锐化、无斑驳、无杂乱细节`，以强力杜绝 AI 生成中常见的杂色、噪点与过度锐化硬伤。
+- **变化变量（触觉与风格特征）**：随资产类型、风格及背景自反应编译物理特性，支持四大艺术流派：
+  1. **真人电影写实 (Cinematic Realism)**：极致毛孔质感 + 物理硬材质与衣物粗糙度 + 胶片光泽。
+  2. **日式动漫 / 二次元 (Anime / 2D)**：干净手绘平涂 + 扁平大色块背景 + 线条清晰描绘。
+  3. **美式卡通 / 三维风格化 (Cartoon / 3D Stylized)**：三维黏土树脂潮玩 + 哑光塑料肌理 + 糖果配色。
+  4. **超现实主义 (Surrealism / Dreamcore)**：重力悬浮与时空扭曲 + 渐变光泽 + 梦境色谱天幕。
+
+### 7. Seedance 2.0 12秒四阶动静律动协议
+
+对于下游视频模型提示词，统一锁定 **12秒连续影院级规格（16:9, 24fps）**，并强力执行四阶动作/运镜律动：
+- `0:00-0:03`：低机位大景慢前推，建立空间，约束背景剪影 `no cloned faces`（无脸型克隆协议），保证背景路人脸型随机。
+- `0:03-0:06`：极细微手部/眼部微距，配合 2-3 次硬切快速节拍，突显道具/手势微动作。
+- `0:06-0:09`：中景/中近景环绕或摇移镜头，配合角色旋身、格挡、发力等大幅体态，约束人体比例真实。
+- `0:09-0:12`：低角度宽景终帧，镜头减速并平稳下移/急停，在最后 0.8 秒实施**稳定锁帧**，呈现标志性剪影，杜绝字幕、水印和乱码。
+
+### 8. 校验脚本和 QA 门禁
 
 内置无依赖 Python 校验脚本：
 
