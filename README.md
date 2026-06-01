@@ -80,8 +80,24 @@ https://raw.githubusercontent.com/wp746/prototype-reconstruction-system/main/SKI
 
 如果你的 agent 工具支持从 GitHub 安装技能，可以直接安装整个仓库；如果只支持单文件入口，就使用根目录 `SKILL.md`。OpenAI / Codex 类工具还会读取 `agents/openai.yaml` 作为列表卡片和默认调用提示。
 
+## Agent 架构
+
+这个项目对外是一个可安装 Skill，对内是一个 `Master Agent + A0-A11` 的多智能体协作系统：
+
+```text
+SKILL.md
+-> agents/master-agent.md
+-> A0 任务控制 / A1 输入版权 / A2 视频分析 / A3 逐镜 DNA
+-> A4 叙事台词 / A5 资产风格 / A6 声音节奏
+-> A7 变量不变量 / A8 新片映射 / A9 合规
+-> A10 后端交接 / A11 QA
+```
+
+对外分享时只需要安装仓库或 `SKILL.md`；真正执行任务时，Master Agent 会按素材条件和目标自动选择 A/B/C 支线，并只加载必要的子 Agent。
+
 推荐先看：
 
+- [Master Agent 执行入口](agents/master-agent.md)
 - [原型重构多智能体 SOP](docs/prototype-reconstruction-sop.md)
 - [复刻需求收集与重构协议](docs/remake-reconstruction-protocol.md)
 - [DNA 取证审核系统](docs/dna-forensic-audit-system.md)

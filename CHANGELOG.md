@@ -2,7 +2,8 @@
 
 ## Unreleased
 
-- 暂无。
+- 新增 `agents/master-agent.md` 和 A0-A11 子 Agent 执行卡，把系统升级为“一个 Skill 入口 + 多智能体内部协作”的可分享架构。
+- 更新 `SKILL.md` 与 `README.md`，明确安装入口、Master Agent 路由和 A/B/C 支线协作关系。
 
 ## v0.3.1 - 2026-06-02
 

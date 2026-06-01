@@ -7,6 +7,10 @@ description: Use when the user provides a video clip, short film, link, screensh
 
 This skill turns a reference video, link, screenshot set, script, or user asset pack into a production-ready AIGC remake package. It is for method reconstruction, not copying: preserve transferable film grammar and rebuild the expression as a new independent piece.
 
+## Architecture
+
+This repository is installed as one Skill, but it runs as one Master Agent coordinating A0-A11 specialist agents. Start with `agents/master-agent.md` for routing, then load only the specialist agent files needed for the user's task.
+
 ## Non-Negotiables
 
 - Do backend DNA analysis before production. Do not jump straight to assets, storyboards, or Seedance prompts unless the user explicitly requests a quick C-line direct prompt.
@@ -60,6 +64,7 @@ This skill turns a reference video, link, screenshot set, script, or user asset 
 - For portrait overfit and style-lock control, read `docs/image2-live-action-portrait-overfit-control.md`.
 - For ready-to-copy master prompts, read `templates/remake-master-agent-prompt-v1.md` and `templates/seedance-reference-prompt-template-v1.md`.
 - For asset/storyboard board layouts, read only the relevant file in `templates/`.
+- For internal multi-agent routing, read `agents/master-agent.md`; then load the relevant A0-A11 specialist file.
 - If editing this repository, run `python3 scripts/check_project.py` before finishing.
 
 ## Output Defaults
