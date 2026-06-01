@@ -3,6 +3,7 @@
 ## Unreleased
 
 - 新增 [docs/global-three-branch-remake-system.md](docs/global-three-branch-remake-system.md)：把复刻/重构系统的 A/B/C 三条支线经验全局化，沉淀资产职责隔离、黑白故事板控制、纯文本 C 线因果锁、跨支线失败诊断和拆段生成规则。
+- 更新 `README.md` 首页“三支线速览”，让 A/B/C 线的使用场景、输入条件、控制目标、风险和 86/95 质量基准在 GitHub 首页可直接读取。
 - 新增 [docs/dna-forensic-audit-system.md](docs/dna-forensic-audit-system.md)：所有复刻任务在生产前必须通过 `DNA_SIGNOFF`，15 秒以内片段执行逐帧/逐变化拆解，并强制审核主角变身、道具机制、法术升级、群体反应和终帧前态，防止漏掉核心 DNA。
 - 沉淀 GPT-image2 真人人像防过拟合“减法锁”：真人资产提示词优先短、准、统一，禁止默认堆叠质量词、复杂相机参数、胶片颗粒和极致毛孔词。
 - 新增 [docs/image2-live-action-portrait-overfit-control.md](docs/image2-live-action-portrait-overfit-control.md)，并将角色资产模板中的真人电影写实风格锁从“极致毛孔”改为“商业摄影/影视人像 + 自然柔光 + 克制真实肤感”。
