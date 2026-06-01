@@ -2,7 +2,22 @@
 
 ## Unreleased
 
-- (正在筹备中的下一版本优化内容)
+- 新增 [docs/global-three-branch-remake-system.md](docs/global-three-branch-remake-system.md)：把复刻/重构系统的 A/B/C 三条支线经验全局化，沉淀资产职责隔离、黑白故事板控制、纯文本 C 线因果锁、跨支线失败诊断和拆段生成规则。
+- 新增 [docs/dna-forensic-audit-system.md](docs/dna-forensic-audit-system.md)：所有复刻任务在生产前必须通过 `DNA_SIGNOFF`，15 秒以内片段执行逐帧/逐变化拆解，并强制审核主角变身、道具机制、法术升级、群体反应和终帧前态，防止漏掉核心 DNA。
+- 沉淀 GPT-image2 真人人像防过拟合“减法锁”：真人资产提示词优先短、准、统一，禁止默认堆叠质量词、复杂相机参数、胶片颗粒和极致毛孔词。
+- 新增 [docs/image2-live-action-portrait-overfit-control.md](docs/image2-live-action-portrait-overfit-control.md)，并将角色资产模板中的真人电影写实风格锁从“极致毛孔”改为“商业摄影/影视人像 + 自然柔光 + 克制真实肤感”。
+- 将“Image2 去除过拟合噪点提示词”（来源：鲤鱼老师）加入资产板与故事板图像生成风格锁；中文提示词使用中文抗噪声明，英文提示词使用英文原句。
+- 升级风格锁为“变量 + 不变量”编译规则：不同角色、场景、道具、故事板和媒介风格必须替换当下资产变量，再拼接抗过拟合不变量，避免机械复制同一条风格锁。
+- 新增 `REFERENCE_PLUS_USER_ASSETS` 分支：当用户提供自己的角色、场景、道具、产品或素材包时，先做用户资产摄取和资产板补全，再用这些资产去承接参考片镜头方法。
+- 新增 `scripts/check_project.py` 仓库级健康检查脚本，统一检查必需文件、Markdown 本地链接、handoff JSON 模板和本地 `outputs/` 样例交付包。
+- 修正 `README.md` Quick Start 和仓库结构排版，补充 `outputs/` 本地样例产物的提交边界。
+- 更新 QA 发布检查项，要求发布前运行仓库级健康检查。
+- 新增 `docs/remake-reconstruction-protocol.md`，把复刻需求收集、多维 DNA 拆解、变量/不变量映射、故事板镜头数规则和 Seedance 显式引用规则固化为前置协议。
+- 更新 SOP、Agent Cards 和视频分析模块：复刻任务必须先询问用户要复刻哪些层，15 秒内片段必须确认镜头数量和切点证据。
+- 升级故事板规则：故事板格数必须等于参考片镜头数，超过 10 镜拆成多个故事板。
+- 新增 `templates/seedance-reference-prompt-template-v1.md`，要求 Seedance 明确引用 `A01 / M03`、`A02 / V04`、`A03 / P06` 等资产图号和模块标签，并明确引用几乘几故事板。
+- 新增 `templates/remake-master-agent-prompt-v1.md`，沉淀一版可直接复用的复刻与原型重构总控提示词。
+- 新增创意方向门禁：进入资产、故事板和 Seedance 前，必须至少提供 3 个新片重构方向供用户选择。
 
 ## v0.2.0 - 2026-05-31
 

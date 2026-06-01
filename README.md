@@ -49,20 +49,34 @@ https://github.com/wp746/prototype-reconstruction-system/archive/refs/heads/main
 推荐先看：
 
 - [原型重构多智能体 SOP](docs/prototype-reconstruction-sop.md)
+- [复刻需求收集与重构协议](docs/remake-reconstruction-protocol.md)
+- [DNA 取证审核系统](docs/dna-forensic-audit-system.md)
+- [复刻重构三支线全局规则](docs/global-three-branch-remake-system.md)
+- [Seedance 2.0 三支线交付协议](docs/seedance-two-branch-delivery-protocol.md)
 - [视频分析模块](docs/video-analysis-module.md)
 - [Agent 职责卡](docs/agent-cards.md)
 - [角色资产板固定模板 V2](templates/character-asset-board-template-v2.md)
 - [场景资产板固定模板 V1](templates/scene-asset-board-template-v1.md)
-    ├── storyboard-asset-board-template-v1.md
-
 - [道具资产板固定模板 V1](templates/prop-asset-board-template-v1.md)
-所有故事板类 Image2 提示词必须使用 `WHITE_STORYBOARD_SHEET_TEMPLATE`，模板见 [templates/storyboard-asset-board-template-v1.md](templates/storyboard-asset-board-template-v1.md)。故事板必须包含 10 个固定段落：`[PROJECT CARD]`、`[CONTINUITY HEADER]`、`[SUBJECTS]`、`[SCENE]`、`[STORYBOARD FORMAT]`、`[VISUAL LANGUAGE]`、`[ACTION DNA]`、`[SHOT DESIGN RULES]`、`[PANEL BEAT MAP]`、`[NEGATIVE]`。每格 beat 用"景别 + 动作"一句话，不要长描写。风格包写成一段完整声明而不是关键词堆砌。角色描述必须包含动作语言而不是只有外观。
 - [故事板固定模板 V1](templates/storyboard-asset-board-template-v1.md)
-
+- [复刻重构总控提示词 V1](templates/remake-master-agent-prompt-v1.md)
+- [Seedance 明确引用模板 V1](templates/seedance-reference-prompt-template-v1.md)
 - [Markdown 交接模板](templates/handoff-template.md)
 - [JSON 交接模板](templates/handoff-template.json)
 - [JSON Schema](schemas/handoff.schema.json)
 - [QA Checklist](checklists/qa-checklist.md)
+
+所有复刻任务必须先完成用户需求收集：确认要复刻镜头节奏、运镜、剧情、角色、场景、风格、台词/旁白、音效、特效、剪辑中的哪些层。用户未确认复刻范围时，只做 DNA 分析，不直接进入资产、故事板或 Seedance 生产。
+
+所有复刻任务还必须先通过 `DNA_SIGNOFF`。15 秒以内片段要逐帧/逐变化拆解，并显式检查主角变身、道具机制、法术升级、群体反应和终帧前态；0.5 秒接触表只能辅助导航，不能替代 DNA 证据。没有通过 [DNA 取证审核系统](docs/dna-forensic-audit-system.md)，不得进入资产、故事板或 Seedance。
+
+如果用户准备了自己的角色、场景、道具、产品或素材包，系统必须进入 `REFERENCE_PLUS_USER_ASSETS` 分支。用户资产是主资产来源，参考片资产只提供镜头功能、出场方法、构图关系、动作节奏和运镜方法。资产板要基于用户素材做 `Visible / Inferred / Missing` 摄取和保守补全，不得用参考片角色、场景或道具覆盖用户资产身份。
+
+所有故事板类 Image2 提示词必须使用 `WHITE_STORYBOARD_SHEET_TEMPLATE`。故事板必须包含 10 个固定段落：`[PROJECT CARD]`、`[CONTINUITY HEADER]`、`[SUBJECTS]`、`[SCENE]`、`[STORYBOARD FORMAT]`、`[VISUAL LANGUAGE]`、`[ACTION DNA]`、`[SHOT DESIGN RULES]`、`[PANEL BEAT MAP]`、`[NEGATIVE]`。故事板格数必须等于参考片镜头数；超过 10 镜必须拆成多个故事板。每格 beat 必须写清 `SH## / timecode / 景别 / 运镜 / 动作 / active assets`。
+
+Seedance 2.0 后期交付分三条支线：A 线为资产直出 Seedance，不上传故事板，优先保护用户指定角色、场景和道具；B 线为黑白手稿故事板参考 Seedance，只在切镜和构图控制优先且故事板通过身份审核时使用；C 线为无资产文本直出 Seedance，适用于用户没有资产、也没有要求资产/故事板、只要一条 Seedance 2.0 提示词的快速复刻或重构。A/B 线必须使用明确引用写法，例如 `参考 A01 / M03 FACE CLOSE-UP 锁定角色脸部`、`参考 A02 / V04 CAMERA A 锁定场景机位`、`参考 A03 / P06 HAND LOGIC 锁定道具持握`；C 线没有资产引用，必须用短而稳定的文本锚点锁角色、场景、道具和风格。15 秒以内短片必须写成一条完整连续视频，逐镜 timing 只是片内切点，不是拆成多条视频。
+
+三支线全局方法见 [复刻重构三支线全局规则](docs/global-three-branch-remake-system.md)。A 线遵循“身份资产 -> 环境资产 -> 道具/机制资产 -> 执行态资产 -> 最终 payoff 资产”的资产职责隔离模型；B 线只把干净黑白故事板作为镜头顺序、构图、动作方向和切点节奏控制；C 线为无资产纯文本直出，使用紧凑因果锁而不是资产或故事板引用。若单条 12-15 秒生成无法同时保住快节奏和复杂状态，系统应主动建议拆段生成再剪。
 
 ## 它解决什么问题
 
@@ -101,6 +115,8 @@ Media Probe
 ```
 
 这样逐镜拆解不是凭感觉写，而是由抽帧、视觉变化、运镜起止、音频节拍和叙事 beat 共同支撑。
+
+复刻任务会额外输出 `shot_count_estimate`、切点证据、镜头连贯性说明和故事板布局计划。15 秒以内的片段必须确认真实镜头数量；如果一个 12 秒片段有 8 个镜头，故事板和 Seedance 就按 8 镜头写，而不是压成 4 个宏观段落。
 
 ### 2. 多智能体原型重构
 
@@ -180,27 +196,62 @@ backend_instructions
 
 所有道具类 Image2 资产提示词必须使用 `WHITE_PROP_MULTI_VIEW_LABEL_TEMPLATE`，模板见 [templates/prop-asset-board-template-v1.md](templates/prop-asset-board-template-v1.md)。道具板必须有可见 stable 标签：`P01`-`P08`、`REFERENCE USE`、`@PROP_CODE`、`HAND`、`SCENE_ANCHOR`、`DO_NOT_CHANGE`。
 
-所有故事板类 Image2 提示词必须使用 `WHITE_STORYBOARD_SHEET_TEMPLATE`，模板见 [templates/storyboard-asset-board-template-v1.md](templates/storyboard-asset-board-template-v1.md)。故事板必须采用 1x4 横向网格设计，并包含 10 个固定段落：`[PROJECT CARD]`、`[CONTINUITY HEADER]`、`[SUBJECTS]`、`[SCENE]`、`[STORYBOARD FORMAT]`、`[VISUAL LANGUAGE]`、`[ACTION DNA]`、`[SHOT DESIGN RULES]`、`[PANEL BEAT MAP]`、`[NEGATIVE]`。
+用户自带资产必须先出用户资产板：
+
+```text
+Source Asset ID：用户素材编号或文件名
+Media DNA：真人摄影 / 二次元 / CG / 插画 / 产品摄影 / 真实场景 / 混合媒介
+Visible：原图可见且必须保留
+Inferred：可保守补全
+Missing：缺失或需要确认
+Remake Function：替代参考片里的哪个资产功能
+Module Reference Plan：后续 Seedance 引用 A01/M03、A02/V04、A03/P06 等模块
+```
+
+角色图补 M01-M08，场景图补 V01-V09 和 MAP，道具图补 P01-P08。用户资产与参考片镜头方法冲突时，优先保护用户资产身份，再调整镜头调度。
+
+所有故事板类 Image2 提示词必须使用 `WHITE_STORYBOARD_SHEET_TEMPLATE`，模板见 [templates/storyboard-asset-board-template-v1.md](templates/storyboard-asset-board-template-v1.md)。故事板必须根据参考片真实镜头数动态布局：1-4 镜使用 1x4 或 4x1，5-6 镜使用 3x2，7-8 镜使用 4x2，9-10 镜使用 5x2，超过 10 镜拆成多个故事板。故事板仍必须包含 10 个固定段落：`[PROJECT CARD]`、`[CONTINUITY HEADER]`、`[SUBJECTS]`、`[SCENE]`、`[STORYBOARD FORMAT]`、`[VISUAL LANGUAGE]`、`[ACTION DNA]`、`[SHOT DESIGN RULES]`、`[PANEL BEAT MAP]`、`[NEGATIVE]`。如果故事板包含箭头、框线、标签、编号或说明文字，必须另出 `S##_CLEAN_BW_STORYBOARD` 黑白手稿故事板供 Seedance 使用。
 
 这些资产板标签是生产引用标签，不属于随机画面文字。Seedance 提示词应按这些标签引用资产局部，例如 `use @图片2 V04 CAMERA A`、`use @图片3 P06 HAND LOGIC`。
+
+Seedance 2.0 提示词必须使用 `SEEDANCE_EXPLICIT_REFERENCE_TEMPLATE`，模板见 [templates/seedance-reference-prompt-template-v1.md](templates/seedance-reference-prompt-template-v1.md)。每条提示词必须包含资产引用表、干净控制帧引用或纯文字故事板转译、逐镜 timing、镜头连贯性、后期音效点、Do Not Copy 和 Negative Prompt。
 
 ### 6. 大师级双层架构风格锁标准 (Master Decoupled Style Lock Standard)
 
 为了实现画面画质控制的绝对稳定，系统已全面引入**双层风格锁架构（Decoupled Style Lock Architecture）**，在所有 `image2` 提示词中强制解耦：
 - **不变常量（超高清画质渲染控制）**：固定拼接 `平滑阴影、柔光处理、细节控制、纹理简约、高清晰度、边缘精致、渐变平滑、无噪点、无颗粒感、无人工痕迹、无高频细节、无脏乱纹理、无过度锐化、无斑驳、无杂乱细节`，以强力杜绝 AI 生成中常见的杂色、噪点与过度锐化硬伤。
-- **变化变量（触觉与风格特征）**：随资产类型、风格及背景自反应编译物理特性，支持四大艺术流派：
-  1. **真人电影写实 (Cinematic Realism)**：极致毛孔质感 + 物理硬材质与衣物粗糙度 + 胶片光泽。
+- **Image2 去除过拟合噪点提示词（鲤鱼老师）**：中文风格锁追加 `干净插画感、平滑阴影、柔和光照、可控细节、最小化纹理、高清晰度、精致边缘、平滑渐变；不要噪点、颗粒、人工痕迹、高频细节、脏乱纹理、过度锐化、斑驳、混乱细节`。英文风格锁追加 `clean illustration, smooth shading, soft lighting, controlled details, minimal texture, high clarity, refined edges, smooth gradients --no noise, grain, artifacts, high frequency detail, dirty texture, oversharpen, blotchy, chaotic details.`
+- **变化变量（触觉与风格特征）**：随资产类型、媒介风格、角色身份、场景空间、道具材质和剧情动作自适应编译物理特性。不能把同一条风格锁机械复制到所有资产上；必须先替换变量，再拼接不变量。
+  1. **真人电影写实 (Cinematic Realism)**：商业摄影/影视人像 + 自然柔和光影 + 真实但克制的皮肤质感 + 物理硬材质与衣物粗糙度。
   2. **日式动漫 / 二次元 (Anime / 2D)**：干净手绘平涂 + 扁平大色块背景 + 线条清晰描绘。
   3. **美式卡通 / 三维风格化 (Cartoon / 3D Stylized)**：三维黏土树脂潮玩 + 哑光塑料肌理 + 糖果配色。
   4. **超现实主义 (Surrealism / Dreamcore)**：重力悬浮与时空扭曲 + 渐变光泽 + 梦境色谱天幕。
 
-### 7. Seedance 2.0 12秒四阶动静律动协议
+真人人像额外执行“减法锁”：GPT-image2 真人资产优先使用 `人物主体 + 气质/姿态 + 风格锚点 + 光影质感 + 真实但克制的皮肤质感`。禁止默认堆叠 `ultra realistic`、`photorealistic`、`highly detailed`、`8k`、`masterpiece`、`best quality`、`sharp focus`、`film grain`、`Kodak Portra`、`85mm f/1.2`、`skin pores`、`subsurface scattering` 等词。真人资产提示词应先短、准、统一，再按问题单点加词；详细规则见 [docs/image2-live-action-portrait-overfit-control.md](docs/image2-live-action-portrait-overfit-control.md)。
 
-对于下游视频模型提示词，统一锁定 **12秒连续影院级规格（16:9, 24fps）**，并强力执行四阶动作/运镜律动：
-- `0:00-0:03`：低机位大景慢前推，建立空间，约束背景剪影 `no cloned faces`（无脸型克隆协议），保证背景路人脸型随机。
-- `0:03-0:06`：极细微手部/眼部微距，配合 2-3 次硬切快速节拍，突显道具/手势微动作。
-- `0:06-0:09`：中景/中近景环绕或摇移镜头，配合角色旋身、格挡、发力等大幅体态，约束人体比例真实。
-- `0:09-0:12`：低角度宽景终帧，镜头减速并平稳下移/急停，在最后 0.8 秒实施**稳定锁帧**，呈现标志性剪影，杜绝字幕、水印和乱码。
+风格锁编译公式：
+
+```text
+角色风格锁 = 媒介变量 + 角色身体/身份变量 + 服化道材质变量 + 场景光变量 + 抗错风格排斥变量 + Image2 抗过拟合不变量
+场景风格锁 = 媒介变量 + 空间类型变量 + 建筑/地貌材质变量 + 天气/时间/光源变量 + 可拍区域变量 + Image2 抗过拟合不变量
+道具风格锁 = 媒介变量 + 道具身份变量 + 主材质变量 + 使用/持握变量 + 状态变化变量 + 场景锚点光变量 + Image2 抗过拟合不变量
+故事板风格包 = 媒介变量 + 预演绘制方式变量 + 镜头节奏变量 + 动作线/运动箭头变量 + 场景可读变量 + 角色剪影变量 + Image2 抗过拟合不变量；如果要进入 Seedance，还必须另编译无箭头、无标签、无框线、无文字的干净控制帧风格包
+```
+
+例如，同样使用抗过拟合不变量，古战场真人角色要写商业影视人像、克制真实肤感、湿发、氧化青铜、泥水和冷灰天光；二次元校园角色要写手绘平涂、发丝分组、校服布料和窗光；三维卡通机器人要写亚光塑料、软橡胶、圆润关节和糖果色棚拍光；超现实神祇要写半透明薄纱、发光矿物皮肤、漂浮衣摆和梦境渐变天幕。
+
+### 7. Seedance 2.0 逐镜节奏协议
+
+对于下游视频模型提示词，优先按参考片真实镜头数、切点和运镜逻辑写 Seedance。比如 12 秒片段如果有 8 个镜头，就写成 `SH01-SH08` 的逐镜 timing、角色/场景/道具锚点和镜头连贯性；如果 15 秒片段有 10 个镜头，就写成 `SH01-SH10`。这些逐镜不是分开生成，而是一条连续成片中的片内剪辑节奏。
+
+只有当用户没有要求镜头节奏复刻，或参考片没有可用镜头证据时，才使用 12 秒四阶兜底协议：
+
+- `0:00-0:03`：大景慢前推，建立空间和规则。
+- `0:03-0:06`：手部/眼部/道具特写，触发动作或信息。
+- `0:06-0:09`：中景/中近景推进主体动作或变化。
+- `0:09-0:12`：宽景或中近景终帧，最后 0.8 秒稳定锁帧。
+
+不管使用逐镜协议还是四阶兜底协议，都必须禁止字幕、水印、乱码、故事板边框和随机文字进入画面。A/B 线必须明确引用资产图号和模块标签；C 线没有资产图时必须用稳定文本锚点替代资产引用。参考片文字若承担台词、咒语或旁白功能，只重写为新片原创声音/表演节奏，不做画面字幕。
 
 ### 8. 校验脚本和 QA 门禁
 
@@ -219,6 +270,19 @@ python3 scripts/validate_handoff.py templates/handoff-template.json
 - 新片映射是否引用有效镜头和资产
 - high risk 合规项是否仍处于 open
 - 后端目标是否为 `image2_seedance_2_0`
+
+仓库级健康检查脚本：
+
+```bash
+python3 scripts/check_project.py
+```
+
+它会检查：
+
+- 必需文档、模板、schema 和脚本是否存在
+- Markdown 本地链接是否失效
+- `templates/handoff-template.json` 是否通过交接校验
+- 如果本地存在 `outputs/`，同步校验其中所有 `*handoff*.json`
 
 ## 标准工作流
 
@@ -273,22 +337,25 @@ Reference Intake
 ├── docs/
 │   ├── agent-cards.md
 │   ├── prototype-reconstruction-sop.md
+│   ├── remake-reconstruction-protocol.md
 │   └── video-analysis-module.md
 ├── schemas/
 │   └── handoff.schema.json
 ├── scripts/
+│   ├── check_project.py
 │   └── validate_handoff.py
 └── templates/
     ├── character-asset-board-template-v2.md
     ├── prop-asset-board-template-v1.md
-- [故事板固定模板 V1](templates/storyboard-asset-board-template-v1.md)
-
+    ├── remake-master-agent-prompt-v1.md
     ├── scene-asset-board-template-v1.md
+    ├── seedance-reference-prompt-template-v1.md
     ├── storyboard-asset-board-template-v1.md
-
     ├── handoff-template.json
     └── handoff-template.md
 ```
+
+`outputs/` 用于本地样例产物和真实项目交付包，默认被 `.gitignore` 忽略。需要发布样例时，建议先脱敏并只提交精选的 Markdown / JSON / contact sheet。
 
 ## 迭代维护约定
 
@@ -300,5 +367,6 @@ Reference Intake
 - Templates / Schema / Validator：如果交接字段变化，三者必须一起改。
 - Asset Board Templates：如果角色、场景或道具资产板版式优化，必须同步模板、SOP、README 和既有提示词包。
 - QA Checklist：如果新增风险、字段或后端约束，必须同步检查项。
+- Project Check：每次发布前运行 `python3 scripts/check_project.py`，确保文档链接、handoff 模板和本地样例交付包没有断裂。
 
 这条规则是为了保证后期持续迭代时，文档、接口和校验器不会各说各话。

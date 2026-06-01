@@ -33,6 +33,18 @@
       "exact scene design"
     ]
   },
+  "user_asset_manifest": [
+    {
+      "source_asset_id": "USER_ASSET_001",
+      "asset_type": "character",
+      "media_dna": "live-action photoreal",
+      "replaces_reference_function": "Reference protagonist function only; do not copy reference character identity.",
+      "visible_lock": "User-provided face, body type, wardrobe, and medium must be preserved.",
+      "inferred_fill": "Conservative missing side/back/action views for asset-board continuity.",
+      "missing_or_confirm": "Confirm any unseen back view, footwear, hand detail, and prop contact.",
+      "module_reference_plan": ["A01/M01", "A01/M03", "A01/M05"]
+    }
+  ],
   "reference_summary": {
     "opening_hook": "Detail-first reveal creates curiosity.",
     "setup": "The protagonist enters a visually constrained space.",

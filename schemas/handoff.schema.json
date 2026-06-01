@@ -83,6 +83,36 @@
       },
       "additionalProperties": true
     },
+    "user_asset_manifest": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "source_asset_id",
+          "asset_type",
+          "media_dna",
+          "replaces_reference_function",
+          "visible_lock",
+          "inferred_fill",
+          "missing_or_confirm",
+          "module_reference_plan"
+        ],
+        "properties": {
+          "source_asset_id": {"type": "string"},
+          "asset_type": {"enum": ["character", "scene", "prop", "product", "mixed"]},
+          "media_dna": {"type": "string"},
+          "replaces_reference_function": {"type": "string"},
+          "visible_lock": {"type": "string"},
+          "inferred_fill": {"type": "string"},
+          "missing_or_confirm": {"type": "string"},
+          "module_reference_plan": {
+            "type": "array",
+            "items": {"type": "string"}
+          }
+        },
+        "additionalProperties": true
+      }
+    },
     "reference_summary": {
       "type": "object",
       "required": ["opening_hook", "setup", "development", "turning_point", "payoff", "ending_image"],

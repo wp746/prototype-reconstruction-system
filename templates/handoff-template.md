@@ -19,6 +19,16 @@
 |---|---|---|---|---|---|
 |  | video_link/local_video |  |  | Preserve method only; do not copy identifiable expression. |  |
 
+## User Asset Manifest
+
+Use this section only when `input_mode = REFERENCE_PLUS_USER_ASSETS`.
+
+| Source Asset ID | Asset Type | Media DNA | Replaces Reference Function | Preserve Lock | Missing / Confirm | Module Reference Plan |
+|---|---|---|---|---|---|---|
+| USER_ASSET_001 | character/scene/prop/product | live-action/anime/CG/illustration/product/real_scene/mixed |  |  |  | A01/M03, A02/V04, A03/P06 |
+
+User-provided assets are the primary asset source. Reference-video assets provide only shot function, staging, rhythm, camera logic, and composition method.
+
 ## Reference Summary
 
 - Opening Hook:

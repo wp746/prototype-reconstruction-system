@@ -52,23 +52,71 @@ It must not:
 
 Every character prompt must contain a decoupled **Style Lock (风格锁)** block before the negative constraints:
 - **Constants (不变的渲染画质控制量)**: `平滑阴影、柔光处理、细节控制、纹理简约、高清晰度、边缘精致、渐变平滑、无噪点、无颗粒感、无人工痕迹、无高频细节、无脏乱纹理、无过度锐化、无斑驳、无杂乱细节` (smooth shadows, soft lighting, detail control, minimal texture, high definition, exquisite edges, smooth gradients, no noise, no graininess, no artificial marks, no high-frequency details, no messy textures, no over-sharpening, no mottling, no cluttered details).
+- **Image2 去除过拟合噪点提示词（鲤鱼老师）**: 中文提示词追加 `干净插画感、平滑阴影、柔和光照、可控细节、最小化纹理、高清晰度、精致边缘、平滑渐变；不要噪点、颗粒、人工痕迹、高频细节、脏乱纹理、过度锐化、斑驳、混乱细节`。英文提示词追加 `clean illustration, smooth shading, soft lighting, controlled details, minimal texture, high clarity, refined edges, smooth gradients --no noise, grain, artifacts, high frequency detail, dirty texture, oversharpen, blotchy, chaotic details.`
 - **Variables (随角色与风格变化的物理参数)**:
   - Medium descriptor (真人电影写实 vs 高精度日式动漫 vs 三维黏土潮玩 vs 超现实主义).
   - Tactile physical textures and materials.
   - Spatial and lighting atmosphere.
   - Anti-mismatch lockout (e.g. 非游戏、非CG for realism).
 
+## Style Lock Compiler Rule
+
+不要把风格锁当作固定尾巴复制。每次生成资产提示词时，必须先编译变量，再拼接不变量：
+
+1. `媒介变量`：根据当下项目选择真人电影写实、日式动漫/二次元、三维卡通/潮玩、超现实主义、国风水墨、赛博科幻等媒介，不同媒介不能混写。
+2. `角色变量`：根据角色身份替换材质和身体语言，例如将军写甲胄与风尘，少女写发丝与织物，机械人写金属关节和屏幕光，神祇写非现实材质和仪式光。
+3. `服化道变量`：写清服装面料、道具材质、配饰、磨损、湿痕、发光方式和尺度关系。
+4. `场景光变量`：写清角色所在空间的主光、天气、色温和环境反射，不要把无关场景光套进来。
+5. `排斥变量`：根据媒介反向排斥错风格，例如写实时排斥动漫脸和游戏CG，二次元排斥真实照片和三维塑料，卡通排斥写实毛孔，超现实排斥普通纪实照片。
+6. `画质不变量`：最后固定拼接抗过拟合/降噪常量，保证干净、平滑、可控、不过度锐化。
+
+### Live-Action Portrait Subtractive Rule (真人人像减法规则)
+
+真人角色资产如果目标是商业摄影、真人短片、古装真人、现代写真或类影视剧照，必须优先使用“高信号短提示”而不是堆砌摄影术语。角色提示词先写清：
+
+```text
+人物主体 + 气质/姿态 + 风格锚点 + 光影质感 + 真实但克制的皮肤质感
+```
+
+真人人像提示词禁止把以下信号堆在同一条风格锁里：`ultra realistic / photorealistic / highly detailed / 8k / masterpiece / best quality / sharp focus / film grain / Kodak Portra / 85mm f1.2 / skin pores / subsurface scattering`。这些词会让 GPT-image2 倾向过度锐化、塑料皮肤、假胶片颗粒和 AI 后期味。
+
+真人写实可用的高信号词是：商业杂志人像、专业人像摄影、editorial portrait、commercial magazine photography、clean professional photography style、natural soft lighting、realistic but controlled skin texture、calm / confident / restrained cinematic mood。相机参数只点到为止，例如“自然浅景深 / professional portrait photography”，不要写成摄影参数清单。
+
+公式：
+
+```text
+风格锁 = 媒介变量 + 当下角色材质变量 + 当下服化道变量 + 当下场景光变量 + 抗错风格排斥变量 + Image2 抗过拟合不变量
+```
+
+English formula:
+
+```text
+Style lock = medium variable + current character material variables + wardrobe/prop variables + scene-light variables + anti-mismatch lockout + Image2 overfitting-noise constants
+```
+
 ### 🎬 1. 真人电影写实 (Cinematic Realism)
-> `风格锁：真人电影写实，[极致的皮肤质感/微观毛孔]，[时空物理场景]，[照片级具体衣物材质与硬材质光泽]，平滑阴影、柔光处理、细节控制、纹理简约、高清晰度、边缘精致、渐变平滑、无噪点、无颗粒感、无人工痕迹、无高频细节、无脏乱纹理、无过度锐化、无斑驳、无杂乱细节。非游戏、非CG、非动漫脸。`
+> `风格锁：真人电影写实，[商业杂志/专业影视人像摄影风格]，[自然柔和主光与克制反差]，[真实但不过度强调毛孔的皮肤质感]，[照片级具体衣物材质与硬材质光泽]，平滑阴影、柔光处理、细节控制、纹理简约、高清晰度、边缘精致、渐变平滑、干净插画感、柔和光照、可控细节、最小化纹理、精致边缘、无噪点、无颗粒感、无人工痕迹、无高频细节、无脏乱纹理、无过度锐化、无斑驳、无混乱细节。非游戏、非CG、非动漫脸、非塑料皮肤、非假胶片颗粒、非过度精修。`
 
 ### 🌸 2. 日式动漫 / 二次元 (Anime / 2D Cel-Shaded)
-> `风格锁：高精度日式动漫，[干净细腻的手绘平涂]，[经典二次元背景设计]，[线条清晰的特定服装与配饰描述]，平滑阴影、柔光处理、细节控制、纹理简约、高清晰度、边缘精致、渐变平滑、无噪点、无颗粒感、无人工痕迹、无高频细节、无脏乱纹理、无过度锐化、无斑驳、无杂乱细节。非三维、非CG、非写实照片、非真实人脸。`
+> `风格锁：高精度日式动漫，[干净细腻的手绘平涂]，[经典二次元背景设计]，[线条清晰的特定服装与配饰描述]，平滑阴影、柔光处理、细节控制、纹理简约、高清晰度、边缘精致、渐变平滑、干净插画感、柔和光照、可控细节、最小化纹理、精致边缘、无噪点、无颗粒感、无人工痕迹、无高频细节、无脏乱纹理、无过度锐化、无斑驳、无混乱细节。非三维、非CG、非写实照片、非真实人脸。`
 
 ### 🧸 3. 美式卡通 / 三维风格化 (Cartoon / 3D Stylized / Art Toy)
-> `风格锁：三维风格化黏土潮玩质感，[极致细腻的亚光塑料/树脂外表]，[高饱和度糖果色背景]，[厚重有分量的服装与特定配件]，平滑阴影、柔光处理、细节控制、纹理简约、高清晰度、边缘精致、渐变平滑、无噪点、无颗粒感、无人工痕迹、无高频细节、无脏乱纹理、无过度锐化、无斑驳、无杂乱细节。非写实照片、非低面数CG、非扁平二次元。`
+> `风格锁：三维风格化黏土潮玩质感，[极致细腻的亚光塑料/树脂外表]，[高饱和度糖果色背景]，[厚重有分量的服装与特定配件]，平滑阴影、柔光处理、细节控制、纹理简约、高清晰度、边缘精致、渐变平滑、干净插画感、柔和光照、可控细节、最小化纹理、精致边缘、无噪点、无颗粒感、无人工痕迹、无高频细节、无脏乱纹理、无过度锐化、无斑驳、无混乱细节。非写实照片、非低面数CG、非扁平二次元。`
 
 ### 🌌 4. 超现实主义 (Surrealism / Dreamcore)
-> `风格锁：超现实主义梦境艺术，[违背重力的悬浮与空间扭曲]，[梦境色彩渐变天幕]，[具有发光质感或半透明薄纱的物体材质]，平滑阴影、柔光处理、细节控制、纹理简约、高清晰度、边缘精致、渐变平滑、无噪点、无颗粒感、无人工痕迹、无高频细节、无脏乱纹理、无过度锐化、无斑驳、无杂乱细节。非传统纪实照片、非低画质噪点图。`
+> `风格锁：超现实主义梦境艺术，[违背重力的悬浮与空间扭曲]，[梦境色彩渐变天幕]，[具有发光质感或半透明薄纱的物体材质]，平滑阴影、柔光处理、细节控制、纹理简约、高清晰度、边缘精致、渐变平滑、干净插画感、柔和光照、可控细节、最小化纹理、精致边缘、无噪点、无颗粒感、无人工痕迹、无高频细节、无脏乱纹理、无过度锐化、无斑驳、无混乱细节。非传统纪实照片、非低画质噪点图。`
+
+### Example Variable Swaps
+
+```text
+真人古战场女将：真人电影写实，商业杂志级影视人像，真实但克制的皮肤质感，湿发，氧化青铜甲胄，泥水战场反光，冷灰天光，自然柔和主光，平滑阴影、柔和光照、可控细节、最小化纹理、高清晰度、精致边缘、平滑渐变；不要噪点、颗粒、人工痕迹、高频细节、脏乱纹理、过度锐化、斑驳、混乱细节。非游戏、非CG、非动漫脸、非塑料皮肤、非假胶片颗粒、非过度精修。
+
+二次元校园少女：高精度日式动漫，干净手绘平涂，柔软校服布料，清晰发丝分组，暖色教室窗光，线条清晰但不过密，平滑阴影、柔和光照、可控细节、最小化纹理、高清晰度、精致边缘、平滑渐变；不要噪点、颗粒、人工痕迹、高频细节、脏乱纹理、过度锐化、斑驳、混乱细节。非写实照片、非三维塑料、非真实人脸。
+
+三维卡通机器人：三维风格化卡通，亚光塑料与软橡胶质感，圆润机械关节，糖果色边缘光，清洁棚拍环境，平滑阴影、柔和光照、可控细节、最小化纹理、高清晰度、精致边缘、平滑渐变；不要噪点、颗粒、人工痕迹、高频细节、脏乱纹理、过度锐化、斑驳、混乱细节。非写实皮肤、非低面数CG、非二次元平面。
+
+超现实梦境神祇：超现实主义梦境艺术，半透明薄纱、发光矿物皮肤、漂浮衣摆、反重力空间、梦境渐变天幕，平滑阴影、柔和光照、可控细节、最小化纹理、高清晰度、精致边缘、平滑渐变；不要噪点、颗粒、人工痕迹、高频细节、脏乱纹理、过度锐化、斑驳、混乱细节。非普通纪实照片、非游戏UI、非脏乱纹理。
+```
 
 ## Chinese Universal Prompt
 
@@ -129,7 +177,7 @@ M07 / 色卡：
 M08 / 连续性标签：
 同一年龄、同一脸、同一体型、同一发型、同一服装、同一道具关系、同一气质。
 
-风格锁：[根据角色与风格类型选取并填入标准双层架构风格锁，锁定不变画质控制量与变化变量参数，如：真人电影写实风格锁]
+风格锁：[根据角色与风格类型选取并填入标准双层架构风格锁，锁定不变画质控制量与变化变量参数，如：真人电影写实风格锁。必须追加 Image2 去除过拟合噪点提示词：干净插画感、平滑阴影、柔和光照、可控细节、最小化纹理、高清晰度、精致边缘、平滑渐变；不要噪点、颗粒、人工痕迹、高频细节、脏乱纹理、过度锐化、斑驳、混乱细节。]
 
 禁止项只作为提示词约束，不要展示在图里：不要换脸、不要换年龄、不要换体型、不要换发型、不要换服装、不要新增无关配饰、不要明星脸、不要随机职业、不要夸张表情、不要多角色、不要红叉示例、不要反例图、不要字幕、不要品牌字。
 ```
@@ -193,7 +241,7 @@ M07 / COLOR PALETTE:
 M08 / CONTINUITY NOTES:
 same age, same face, same body type, same hairstyle, same wardrobe, same prop relationship, same temperament.
 
-Style lock: [Select and fill standard decoupled style lock matching the art style and character, locking rendering constants and style variables]
+Style lock: [Select and fill standard decoupled style lock matching the art style and character, locking rendering constants and style variables. Must append Image2 overfitting-noise removal prompt: clean illustration, smooth shading, soft lighting, controlled details, minimal texture, high clarity, refined edges, smooth gradients --no noise, grain, artifacts, high frequency detail, dirty texture, oversharpen, blotchy, chaotic details.]
 
 Negative constraints are prompt-only and must not appear as a visible image module: no face change, no age change, no body type change, no hairstyle change, no wardrobe change, no unrelated accessories, no celebrity face, no random profession, no exaggerated expression, no extra characters, no red-X examples, no forbidden example images, no subtitles, no brand text.
 ```

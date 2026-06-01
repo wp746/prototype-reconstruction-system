@@ -49,6 +49,27 @@ Scene boards must not create new character identities. Use only:
 
 Do not render clear main-character faces in scene boards unless an integrated board is explicitly requested.
 
+## Scene Style Lock Compiler
+
+场景风格锁必须根据当下空间重新编译变量，不能照搬角色风格锁。
+
+固定公式：
+
+```text
+场景风格锁 = 媒介变量 + 空间类型变量 + 建筑/地貌材质变量 + 天气/时间/光源变量 + 可拍区域变量 + 抗错风格排斥变量 + Image2 抗过拟合不变量
+```
+
+变量写法示例：
+
+- 真人电影写实古战场：湿泥、冷灰天光、残破城墙、氧化铜锚点、烟尘和远景雾压。
+- 二次元城市街道：干净平涂建筑、清晰外轮廓、柔和天空渐变、少量可读招牌区但不生成随机文字。
+- 三维卡通厨房：亚光塑料厨具、圆润家具边缘、糖果色环境光、干净棚拍反射。
+- 超现实梦境花园：反重力地貌、漂浮台阶、半透明植物、梦境渐变天幕。
+
+中文固定抗噪不变量：`干净插画感、平滑阴影、柔和光照、可控细节、最小化纹理、高清晰度、精致边缘、平滑渐变；不要噪点、颗粒、人工痕迹、高频细节、脏乱纹理、过度锐化、斑驳、混乱细节`。
+
+English constants: `clean illustration, smooth shading, soft lighting, controlled details, minimal texture, high clarity, refined edges, smooth gradients --no noise, grain, artifacts, high frequency detail, dirty texture, oversharpen, blotchy, chaotic details.`
+
 ## Chinese Universal Prompt
 
 ```text
@@ -74,7 +95,7 @@ V08 / 光线：[光源、天气、阴影方向]
 V09 / 尺度：[无脸灰色人形/位置标记展示尺度和走位区]
 MAP / 俯视图：[俯视平面/地理图，标注 ENTRANCE、EXIT、CAM_A、CAM_B、CAM_C、CHAR_ZONE、PROP_ANCHOR、LIGHT_DIR、NO_DRIFT]
 
-风格锁：[根据场景与风格类型选取并填入标准双层架构风格锁，锁定不变画质控制量与变化变量参数，如：真人电影写实风格锁]
+风格锁：[根据场景与风格类型选取并填入标准双层架构风格锁，锁定不变画质控制量与变化变量参数，如：真人电影写实风格锁。必须追加 Image2 去除过拟合噪点提示词：干净插画感、平滑阴影、柔和光照、可控细节、最小化纹理、高清晰度、精致边缘、平滑渐变；不要噪点、颗粒、人工痕迹、高频细节、脏乱纹理、过度锐化、斑驳、混乱细节。]
 
 硬规则：同一个SCENE只做一个空间，不混入无关地点；所有视角必须属于同一空间；门、柱、道路、平台、光线方向和道具锚点不能在不同格子漂移；只使用无脸灰色人形或位置标记，不生成清晰主角脸。
 ```
@@ -104,7 +125,7 @@ V08 / LIGHT: [light source, weather, shadow direction]
 V09 / SCALE: [faceless gray silhouettes or markers showing scale and blocking zones]
 MAP / TOP-DOWN: [top-down floor/geography plan labeled ENTRANCE, EXIT, CAM_A, CAM_B, CAM_C, CHAR_ZONE, PROP_ANCHOR, LIGHT_DIR, NO_DRIFT]
 
-Style lock: [Select and fill standard decoupled style lock matching the art style and scene, locking rendering constants and style variables]
+Style lock: [Select and fill standard decoupled style lock matching the art style and scene, locking rendering constants and style variables. Must append Image2 overfitting-noise removal prompt: clean illustration, smooth shading, soft lighting, controlled details, minimal texture, high clarity, refined edges, smooth gradients --no noise, grain, artifacts, high frequency detail, dirty texture, oversharpen, blotchy, chaotic details.]
 
 Hard rule: one SCENE board controls one space only; do not mix unrelated locations. All views must belong to the same geography. Doors, pillars, roads, platforms, light direction, and prop anchors must not drift between panels. Use faceless gray silhouettes or position markers only; do not create clear main-character faces.
 ```
