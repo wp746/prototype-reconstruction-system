@@ -1,0 +1,5 @@
+interface:
+  display_name: "Prototype Reconstruction System"
+  short_description: "DNA-level video remake workflows for Image2 and Seedance."
+  default_prompt: "Use $prototype-reconstruction-system to analyze this reference video, extract its transferable DNA, choose A/B/C delivery, and output source-free Image2/Seedance production prompts."
+  brand_color: "#6F42C1"

@@ -94,8 +94,10 @@ def check_markdown_links() -> list[str]:
 
 def check_required_files() -> list[str]:
     required = [
+        "SKILL.md",
         "README.md",
         "CHANGELOG.md",
+        "agents/openai.yaml",
         "docs/prototype-reconstruction-sop.md",
         "docs/video-analysis-module.md",
         "docs/agent-cards.md",

@@ -1,6 +1,6 @@
 # Prototype Reconstruction System
 
-> v0.3.0 | 2026-06-02
+> v0.3.1 | 2026-06-02
 
 一个面向 AIGC 短片创作者和内部制作团队的“原型重构”多智能体工作流系统。
 
@@ -63,6 +63,22 @@ https://raw.githubusercontent.com/wp746/prototype-reconstruction-system/main/doc
 ```text
 https://github.com/wp746/prototype-reconstruction-system/archive/refs/heads/main.zip
 ```
+
+Agent / Skill 入口：
+
+```text
+https://raw.githubusercontent.com/wp746/prototype-reconstruction-system/main/SKILL.md
+```
+
+推荐调用方式：
+
+```text
+请调用 prototype-reconstruction-system 技能。
+参考素材：<本地视频 / 视频链接 / 截图 / 用户资产包>
+目标：先做 DNA 拆解与遗漏审核，再按 A/B/C 支线输出可生产提示词。
+```
+
+如果你的 agent 工具支持从 GitHub 安装技能，可以直接安装整个仓库；如果只支持单文件入口，就使用根目录 `SKILL.md`。OpenAI / Codex 类工具还会读取 `agents/openai.yaml` 作为列表卡片和默认调用提示。
 
 推荐先看：
 

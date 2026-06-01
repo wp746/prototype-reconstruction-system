@@ -4,6 +4,13 @@
 
 - 暂无。
 
+## v0.3.1 - 2026-06-02
+
+- 新增根目录 `SKILL.md`，将原型重构系统封装为可被 agent/skill 工具安装和调用的标准技能入口。
+- 新增 `agents/openai.yaml`，提供 OpenAI / Codex 类工具可读取的展示名称、简介和默认调用提示。
+- 更新 `README.md` Quick Start，补充 GitHub 安装地址、Raw Skill 入口和推荐调用方式，方便分享给其他创作者或内部 agent 工作流。
+- 升级 `scripts/check_project.py`，将 `SKILL.md` 和 `agents/openai.yaml` 纳入仓库健康检查。
+
 ## v0.3.0 - 2026-06-02
 
 - 新增 [docs/global-three-branch-remake-system.md](docs/global-three-branch-remake-system.md)：把复刻/重构系统的 A/B/C 三条支线经验全局化，沉淀资产职责隔离、黑白故事板控制、纯文本 C 线因果锁、跨支线失败诊断和拆段生成规则。
