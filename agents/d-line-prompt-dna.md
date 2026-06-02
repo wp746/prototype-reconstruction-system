@@ -23,6 +23,7 @@ Read the prompt as if it describes a short film timeline. Extract:
 - Scene geography, time/weather/light, foreground/midground/background, spatial anchors.
 - Props/products/VFX mechanisms, trigger chain, state changes, and final state.
 - Camera language, shot size, cut rhythm, motion direction, speed curve, and composition center.
+- Continuity mode: hard-cut montage, hidden-cut sequence, single-take handheld follow, locked tripod take, screen recording, POV walkthrough, or slideshow. Timecoded lines are not automatically shots.
 - Style, medium, color, material, lighting, texture, render rules, and negatives.
 - Sound cues, spoken lines, subtitles/text rules, and post-production boundaries.
 
@@ -44,6 +45,7 @@ Lock the transferable structure:
 
 - Timeline and beat order.
 - Shot function and cut rhythm.
+- Continuity mode. If the prompt describes handheld following, first-person POV, continuous movement, operator breathing, autofocus hunting, or natural camera drift, treat it as a single-take invariant unless the prompt explicitly says hard cuts.
 - Cause-effect chain.
 - Camera grammar if user wants rhythm preservation.
 - Transformation/state-change chain.
@@ -68,6 +70,7 @@ If the user wants options, provide at least three directions with: direction nam
 ## Pass Criteria
 
 - The original prompt is not blindly paraphrased.
+- Timecoded action beats are not rewritten as hard cuts unless hard cuts are an explicit invariant.
 - Variables and invariants are explicit.
 - At least three directions are offered before production unless user gave a single exact direction.
 - Final rewritten prompt describes the new film only and does not mention the original prompt, source prompt, copying, or analysis process.
