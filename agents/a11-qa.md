@@ -33,3 +33,5 @@ Score every production prompt before handoff:
 - User intent fit: 5 points. The final output matches the user's requested direction, assets, aspect, platform, and test goal.
 
 If any single category loses more than 5 points, revise even if the total remains above 95.
+
+When reviewing a generated result, score against the prompt actually tested and the user's explicit runtime choices. Do not count user-chosen aspect ratio, wardrobe, asset selection, or platform settings as model failures.

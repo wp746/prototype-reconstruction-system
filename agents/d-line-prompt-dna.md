@@ -52,6 +52,15 @@ Classify what can be replaced:
 - Camera/rhythm replacement: shot count, cut points, shot scale order, motion pattern, tempo.
 - Story replacement: premise, conflict, reveal, reversal, payoff.
 
+## Prompt-Native Rewrite Rule
+
+Rewrite inside the original prompt's own grammar and constraint style. Do not add heavy "physical plug-in" constraints, long negative stacks, or new production rules just to force a result, unless the original prompt already uses that style or the user explicitly requests it.
+
+- Prefer changing variables, action causality, beat wording, subject behavior, and scene anchors.
+- Preserve the original prompt's continuity logic, camera premise, sound premise, and realism level.
+- When reviewing a test output, judge against the actual user test conditions. Do not penalize user-chosen overrides such as aspect ratio, wardrobe, uploaded assets, or platform settings.
+- If a failure is caused by an unclear beat, repair the beat itself instead of adding unrelated negatives.
+
 ## Invariant Map
 
 Lock the transferable structure:
@@ -85,6 +94,7 @@ If the user wants options, provide at least three directions with: direction nam
 - The original prompt is not blindly paraphrased.
 - Timecoded action beats are not rewritten as hard cuts unless hard cuts are an explicit invariant.
 - Continuity mode, timecode function, camera path, performance, space, object mechanism, sound, and ending bones are all named.
+- Rewrites stay prompt-native and do not rely on external constraint stacks when a variable/beat-level repair would solve the issue.
 - Variables and invariants are explicit.
 - At least three directions are offered before production unless user gave a single exact direction.
 - Final rewritten prompt describes the new film only and does not mention the original prompt, source prompt, copying, or analysis process.
