@@ -1,5 +1,5 @@
 interface:
   display_name: "Prototype Reconstruction System"
   short_description: "DNA-level video and prompt remake workflows for Image2 and Seedance."
-  default_prompt: "Use $prototype-reconstruction-system to analyze this reference video, asset pack, or existing prompt, extract transferable DNA, choose A/B/C/D delivery, and output source-free Image2/Seedance production prompts."
+  default_prompt: "Use $prototype-reconstruction-system to analyze this reference video, asset pack, or existing prompt, extract transferable DNA, choose A/B/C/D delivery, and output source-free Image2/Storyboard/Seedance production prompts. For longer films, use Branch B asset + storyboard + Seedance all-reference workflow."
   brand_color: "#6F42C1"

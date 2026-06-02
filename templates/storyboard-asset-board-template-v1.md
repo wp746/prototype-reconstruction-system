@@ -4,6 +4,8 @@ Template code: `WHITE_STORYBOARD_SHEET_TEMPLATE`
 
 This is the default storyboard sheet template for all Image2 storyboard prompts in this project. It absorbs the structural logic from professional storyboard prompt patterns (especially the 10-section skeleton from @aimikoda's GPT Image 2 workflow) and adds our project's asset-code referencing, bilingual rules, and Seedance handoff compatibility.
 
+For Branch B longform production, storyboard sheets are one part of an asset + storyboard + Seedance all-reference pipeline. Assets lock identity and consistency; storyboard sheets lock narrative shot rhythm, composition, motion direction, and segment continuity.
+
 ## Why This Structure Works
 
 The key insight from professional storyboard prompts:
@@ -61,6 +63,12 @@ Storyboard panel count must follow the actual source-shot count and the new scen
 | More than 10 | Split into multiple storyboard sheets, max 10 shots per sheet |
 
 Do not force every remake into a 4-panel board. If a 12-second source clip has 8 cuts, the storyboard must have 8 panels. If a 15-second source clip has 10 cuts, the storyboard must have 10 panels. Every panel must match one source-shot function and one new-shot action beat.
+
+For longform Branch B, split the film into 4-15 second segments first. Each storyboard sheet belongs to one `SEG##` and must carry:
+
+```text
+SEG## / runtime / in_state / action_chain / out_state / continuity_to_next
+```
 
 Each panel beat must include:
 

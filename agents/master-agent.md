@@ -27,7 +27,7 @@ You are the single public entry for the Prototype Reconstruction System. Interna
 ## Branch Selection
 
 - A line: user assets exist or identity/product consistency is the dominant risk.
-- B line: clean black-and-white storyboard/control frames exist and shot/camera control is the dominant risk.
+- B line: a longer remake needs asset + storyboard + Seedance all-reference control to preserve character, scene, prop, style, and narrative continuity across segments.
 - C line: no assets/storyboard and the user needs a compact direct Seedance prompt.
 - D line: an existing prompt is the prototype source and the user wants style, element, character, scene, dialogue, story, or rhythm replacement.
 

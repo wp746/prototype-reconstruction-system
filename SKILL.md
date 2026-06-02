@@ -40,7 +40,7 @@ This repository is installed as one Skill, but it runs as one Master Agent coord
 
 4. Choose the delivery branch.
    - A line: asset-based direct Seedance. Use when user assets, character consistency, products, props, or brand identity matter most.
-   - B line: clean black-and-white storyboard/control-frame guided Seedance. Use when shot order, cut rhythm, composition, and motion direction matter most.
+   - B line: asset + storyboard + Seedance all-reference longform production. Use when a longer remake needs asset consistency, storyboard-controlled narrative shots, and unified character/scene/prop/style across segments.
    - C line: text-only direct Seedance. Use when no assets/storyboard are available and the user needs fast prompt validation.
    - D line: prompt-to-remake. Use when the user gives an existing 12-15 second prompt and wants variable replacement or prototype reconstruction from that prompt.
 
@@ -64,6 +64,7 @@ This repository is installed as one Skill, but it runs as one Master Agent coord
 - For forensic DNA and omission audit, read `docs/dna-forensic-audit-system.md`.
 - For A/B/C/D branch selection and prompt rules, read `docs/global-three-branch-remake-system.md`.
 - For Seedance branch handoff wording, read `docs/seedance-two-branch-delivery-protocol.md`.
+- For longform B-line production, read `docs/branch-b-longform-asset-storyboard-seedance.md`.
 - For portrait overfit and style-lock control, read `docs/image2-live-action-portrait-overfit-control.md`.
 - For ready-to-copy master prompts, read `templates/remake-master-agent-prompt-v1.md` and `templates/seedance-reference-prompt-template-v1.md`.
 - For asset/storyboard board layouts, read only the relevant file in `templates/`.
@@ -76,6 +77,6 @@ This repository is installed as one Skill, but it runs as one Master Agent coord
 - If the task is a general remake request: first deliver DNA analysis, variable/invariant map, at least three reconstruction directions, and a recommended A/B/C/D route.
 - If the task is a production request: deliver the selected branch package and include prompt-lint notes.
 - If the user has supplied assets: use A line unless they explicitly ask for storyboard control.
-- If the user supplies clean storyboard/control frames: use B line only after asset identity and storyboard cleanliness are checked.
+- If the user wants asset + storyboard + Seedance 2.0 for a longer remake, use B line after asset identity, segment continuity, and storyboard cleanliness are checked.
 - If the user has no assets and asks for one Seedance prompt: use C line and target a single continuous 12-15 second result when feasible.
 - If the user supplies an existing prompt: use D line, collect replacement scope, offer at least three directions, then rewrite.

@@ -16,4 +16,5 @@ Preservation/variation map, user-selected direction, asset matrix, target branch
 
 - Every shot or segment has in-state, action, and out-state.
 - Storyboard panel count matches the actual shot count; more than 10 shots are split into multiple boards.
-- A-line prompts bind user assets; B-line prompts bind clean storyboard control; C-line prompts use compact text anchors.
+- B-line longform plans split the film into 4-15 second segments, each with `in_state / action_chain / out_state / continuity_to_next`.
+- A-line prompts bind user assets; B-line prompts bind asset identity plus clean storyboard narrative control; C-line prompts use compact text anchors.

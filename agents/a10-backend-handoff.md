@@ -16,6 +16,6 @@ Markdown handoff, JSON handoff when needed, final Image2 prompts, final Seedance
 
 - Asset references are explicit and valid.
 - A-line uses asset IDs and module labels.
-- B-line names the clean storyboard grid and excludes rendering panel labels, arrows, text, UI, and borders.
+- B-line names the asset package, segment state, clean storyboard grid, and Seedance all-reference hierarchy; it excludes rendering panel labels, arrows, text, UI, and borders.
 - C-line is compact, continuous, causal, and free of irrelevant A/B baggage.
 - D-line includes prompt DNA, variable/invariant map, selected replacement direction, and a rewritten prompt that does not mention the source prompt.
