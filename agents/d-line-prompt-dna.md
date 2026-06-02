@@ -27,6 +27,19 @@ Read the prompt as if it describes a short film timeline. Extract:
 - Style, medium, color, material, lighting, texture, render rules, and negatives.
 - Sound cues, spoken lines, subtitles/text rules, and post-production boundaries.
 
+## Bone-Level Audit
+
+Before rewriting, verify that no "bone under the skeleton" is missing:
+
+- Continuity bone: one-take, hidden cut, hard cut montage, fixed camera, POV walkthrough, or screen recording.
+- Timecode bone: whether time marks are action beats, edit cuts, camera positions, or music/sound cues.
+- Camera bone: operator position, camera path, distance changes, focus behavior, shake/stability, and lens/phone behavior.
+- Performance bone: gaze, mouth shape, body angle, hand action, emotional shift, and line delivery.
+- Space bone: where the subject starts, where they move, how the camera follows, and what anchors remain visible.
+- Object/mechanism bone: what object is touched, what changes, what problem occurs, and what final state is reached.
+- Sound bone: diegetic sound, dialogue/VO, silence, BGM/post boundary, and sound-triggered motion.
+- Ending bone: what visual/emotional state holds for the final readable moment.
+
 ## Variable Map
 
 Classify what can be replaced:
@@ -71,7 +84,9 @@ If the user wants options, provide at least three directions with: direction nam
 
 - The original prompt is not blindly paraphrased.
 - Timecoded action beats are not rewritten as hard cuts unless hard cuts are an explicit invariant.
+- Continuity mode, timecode function, camera path, performance, space, object mechanism, sound, and ending bones are all named.
 - Variables and invariants are explicit.
 - At least three directions are offered before production unless user gave a single exact direction.
 - Final rewritten prompt describes the new film only and does not mention the original prompt, source prompt, copying, or analysis process.
 - If assets are added later, route to A line; if storyboard/control frames are added later, route to B line.
+- A11 score must be at least 95/100 before the rewritten prompt is delivered.

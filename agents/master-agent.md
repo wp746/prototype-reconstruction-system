@@ -39,3 +39,4 @@ Only hand off production prompts when:
 - A/B/C/D branch is named.
 - Shot count, transformation/state change, hand/body action, VFX mechanism, dialogue timing, and final payoff are accounted for.
 - Prompt lint confirms no source-process language and no nonexistent asset references.
+- A11 final score is at least 95/100. If score is below 95, do not send the production prompt to the user; revise the weak dimensions first.
