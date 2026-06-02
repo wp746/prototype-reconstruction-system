@@ -111,6 +111,7 @@ def check_required_files() -> list[str]:
         "agents/a9-compliance.md",
         "agents/a10-backend-handoff.md",
         "agents/a11-qa.md",
+        "agents/d-line-prompt-dna.md",
         "docs/prototype-reconstruction-sop.md",
         "docs/video-analysis-module.md",
         "docs/agent-cards.md",

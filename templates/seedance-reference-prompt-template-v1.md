@@ -12,7 +12,7 @@ Template code: `SEEDANCE_EXPLICIT_REFERENCE_TEMPLATE`
 
 ## Required Structure
 
-Seedance 2.0 提示词分三条支线，不能混用。
+Seedance 2.0 提示词分四条支线，不能混用。
 
 ### Branch A / Asset-only Direct
 
@@ -90,6 +90,52 @@ SH02 / ...
 
 [NEGATIVE PROMPT]
 字幕，画面文字，水印，logo，随机文字，乱码，参考片角色脸，参考片服装，参考片道具形状，参考片特效图形，角色脸漂移，服装漂移，道具变形，场景漂移，镜头合并，少于 SH[N] 个镜头，一镜到底，多指，坏手，塑料皮肤，游戏 CG 感。
+```
+
+### Branch D / Existing Prompt Remake
+
+用于用户提供一段已有视频提示词，希望分析这段提示词的变量/不变量，并替换风格、元素、角色、场景、台词、剧情或镜头节奏时。
+
+D 线后台结构：
+
+```text
+[PROMPT DNA LEDGER]
+[INVARIANT MAP]
+[VARIABLE MAP]
+[REPLACEABLE LAYERS]
+[THREE RECONSTRUCTION DIRECTIONS]
+[SELECTED REWRITE PLAN]
+```
+
+D 线不直接同义改写原提示词。必须先拆出提示词 DNA，再收集用户替换范围；除非用户已指定唯一方向，否则先给至少 3 个方向。最终可复制给模型的提示词只写新片本身，不写“原始提示词、照着改、参考提示词、copy”等过程语言。
+
+D 线最终提示词骨架：
+
+```text
+[VIDEO TASK]
+生成一条完整连续的 [时长] 秒电影级视频，[画幅]，[fps]。视频包含 SH01-SH[N] 的片内硬切节奏；这些镜头是同一条视频里的连续剪辑，不要拆成多条视频，不要一镜到底。
+
+[NEW FILM LOCK]
+主角：[替换后的稳定角色锚点。]
+场景：[替换后的稳定场景锚点。]
+道具/产品/VFX：[替换后的机制锚点：触发 -> 变化 -> 终态。]
+风格：[替换后的媒介、光影、色彩、材质、镜头质感。]
+
+[SHOT-BY-SHOT TIMING]
+SH01 / [start-end] / [shot size] / [camera move] / [single action beat + visible result]
+SH02 / ...
+
+[DIALOGUE / VOICE PERFORMANCE]
+[原创台词、口型或旁白功能；不生成字幕，不生成画面文字。]
+
+[MOTION CONTINUITY]
+[保留选定不变量的动作因果链，只描述新片自身。]
+
+[SOUND EFFECTS FOR POST]
+无 BGM。SFX：[原创音效点。]
+
+[NEGATIVE PROMPT]
+字幕，画面文字，水印，logo，随机文字，乱码，角色脸漂移，服装漂移，道具变形，场景漂移，镜头合并，少于 SH[N] 个镜头，一镜到底，多指，坏手，[当前题材专属失败项]。
 ```
 
 `[DO NOT COPY]` 只保留在后台分析和 QA 文档中。最终可复制给模型的 Seedance 提示词不得出现原片、参考片、source、copy、do not copy 等源片提醒。

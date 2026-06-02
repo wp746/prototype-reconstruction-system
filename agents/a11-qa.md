@@ -17,4 +17,4 @@ QA report, score, pass/fail, required fixes, accepted residual risks.
 - `DNA_SIGNOFF` passes.
 - Shot count, state changes, transformation, hands/body, VFX mechanism, sound cues, dialogue timing, and payoff are represented.
 - No source/reference-process language appears in final prompts.
-- A-line asset consistency, B-line clean-control rules, or C-line compactness rules pass according to branch.
+- A-line asset consistency, B-line clean-control rules, C-line compactness rules, or D-line prompt-variable rules pass according to branch.

@@ -2,8 +2,13 @@
 
 ## Unreleased
 
+- 暂无。
+
+## v0.3.2 - 2026-06-02
+
 - 新增 `agents/master-agent.md` 和 A0-A11 子 Agent 执行卡，把系统升级为“一个 Skill 入口 + 多智能体内部协作”的可分享架构。
-- 更新 `SKILL.md` 与 `README.md`，明确安装入口、Master Agent 路由和 A/B/C 支线协作关系。
+- 更新 `SKILL.md` 与 `README.md`，明确安装入口、Master Agent 路由和 A/B/C/D 支线协作关系。
+- 新增 D 线：当用户提供已有 12-15 秒视频提示词时，先拆提示词 DNA、变量/不变量和可替换层，再给至少 3 个重构方向，最后按用户选择改写。
 
 ## v0.3.1 - 2026-06-02
 
