@@ -203,6 +203,50 @@ SH02 00:01.2-00:02.1 / evidence: composition center and camera angle change
 - 如果发现角色变身、法术升级、道具机制、群体反应或终帧前态漏项，必须回退到 V1-V3 重新拆。
 - 生产提示词不能写“参考原片/学习原片”等后台措辞；审核结论要转成新片自身的镜头动作和状态变化。
 
+### V9 Branch B Longform Front-End Analysis
+
+当项目进入 B 线长片生产，视频分析模块必须先完成长片前端拆解，不直接进入资产、故事板或 Seedance。
+
+必须输出：
+
+```text
+whole_film_structure
+segment_table
+segment_dna_ledger
+cross_segment_continuity_bible
+B_FRONTEND_SIGNOFF
+```
+
+`whole_film_structure` 覆盖：
+
+- 开场、设定、推进、转折、高潮、收束。
+- 情绪曲线。
+- 角色状态链。
+- 场景地理变化。
+- 道具/产品/法术机制变化。
+- 声音、台词、字幕、BGM 和后期边界。
+
+`segment_table` 要按叙事功能和动作状态切分，不能机械按秒数切。每段 4-15 秒，并包含：
+
+```text
+SEG##
+source_timecode
+duration
+story_function
+emotion_in
+emotion_out
+in_state
+action_chain
+out_state
+continuity_to_next
+asset_needs
+storyboard_needs
+```
+
+`cross_segment_continuity_bible` 必须覆盖角色、场景、道具、风格、声音和剪辑连续性。
+
+`B_FRONTEND_SIGNOFF` 未通过，后续资产、故事板和 Seedance 生产全部停止。
+
 ## 3. Failure Handling
 
 - 视频不可解析：要求用户补交可访问文件、截图序列或关键帧。

@@ -77,6 +77,6 @@ This repository is installed as one Skill, but it runs as one Master Agent coord
 - If the task is a general remake request: first deliver DNA analysis, variable/invariant map, at least three reconstruction directions, and a recommended A/B/C/D route.
 - If the task is a production request: deliver the selected branch package and include prompt-lint notes.
 - If the user has supplied assets: use A line unless they explicitly ask for storyboard control.
-- If the user wants asset + storyboard + Seedance 2.0 for a longer remake, use B line after asset identity, segment continuity, and storyboard cleanliness are checked.
+- If the user wants asset + storyboard + Seedance 2.0 for a longer remake, use B line only after longform front-end DNA decomposition, cross-segment continuity bible, `B_FRONTEND_SIGNOFF`, asset identity, segment continuity, and storyboard cleanliness are checked.
 - If the user has no assets and asks for one Seedance prompt: use C line and target a single continuous 12-15 second result when feasible.
 - If the user supplies an existing prompt: use D line, collect replacement scope, offer at least three directions, then rewrite.

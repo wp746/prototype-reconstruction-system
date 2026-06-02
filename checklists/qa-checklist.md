@@ -41,6 +41,17 @@
 - [ ] 已区分后期字幕、角色台词、旁白、咒语和 BGM；后期内容不会进入画面生成。
 - [ ] `DNA_SIGNOFF: PASS` 后才进入资产、故事板或 Seedance。
 
+## Branch B Longform Front-End
+
+- [ ] B 线长片已完成全片结构表：开场、设定、推进、转折、高潮、收束。
+- [ ] B 线长片已完成 `segment_table`，每段按叙事功能切分，不是机械按秒切。
+- [ ] 每个被选中段落已完成 `segment_dna_ledger`，覆盖剧情、镜头/beat、运镜、表演、场景、道具、服化道、构图、光影、声音、台词/旁白、剪辑、节奏、VFX、状态变化和终帧 payoff。
+- [ ] 已完成跨段连续性圣经：角色、场景、道具、风格、声音、剪辑连续性。
+- [ ] 每段都有 `in_state / action_chain / out_state / continuity_to_next`，且状态链能闭合。
+- [ ] 每段的资产需求和故事板需求已映射。
+- [ ] 已完成 B 线前端遗漏审核。
+- [ ] `B_FRONTEND_SIGNOFF: PASS` 后才进入资产、故事板或 Seedance。
+
 ## Preservation / Variation
 
 - [ ] 每个保留项都是方法，不是可识别表达。

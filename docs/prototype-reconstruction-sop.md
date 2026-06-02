@@ -90,6 +90,12 @@ A2 再把参考片拆成段落和镜头：
 
 通过标准：每个镜头有唯一 ID、起止时间和时长；每个镜头至少被抽帧、视觉变化、运镜起止或音频节拍中的一种证据支持；没有视频分析证据不得进入下一步。
 
+如果项目进入 B 线长片，P2 必须额外输出：
+
+- `whole_film_structure`：全片开场、设定、推进、转折、高潮、收束。
+- `segment_table`：按叙事功能拆成 4-15 秒生产段落，不机械按秒切。
+- `cross_segment_continuity_targets`：角色、场景、道具、风格、声音和剪辑连续性目标。
+
 ### P3 Shot-by-Shot Deconstruction
 
 A3-A6 逐镜拆解：
@@ -108,6 +114,13 @@ A3-A6 逐镜拆解：
 - 声音：音乐、环境声、音效、静默、对白功能。
 - 剪辑：入点、出点、动作剪辑、声音剪辑、情绪剪辑。
 - 节奏：镜头时长分布、快切位置、停顿位置、终帧锁定位置。
+
+如果项目进入 B 线长片，P3 必须额外输出：
+
+- `segment_dna_ledger`：每个段落单独完成多维 DNA。
+- `segment_in_out_state_chain`：每段 in_state、action_chain、out_state、continuity_to_next。
+- `cross_segment_continuity_bible`：角色、场景、道具、风格、声音、剪辑跨段统一规则。
+- `B_FRONTEND_SIGNOFF`：未通过不得进入资产、故事板或 Seedance。
 
 通过标准：每一镜都解释“为什么放在这里”，不能只写高级、电影感、节奏好。
 

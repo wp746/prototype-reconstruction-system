@@ -140,6 +140,13 @@ P1 媒体探测与镜头数确认
 
 如果某项不存在，写 `not present`；如果不确定，写 `uncertain / needs review`，不得跳过。
 
+如果用户做 B 线长片，不得直接进入资产包或故事板。必须先输出：
+- whole_film_structure
+- segment_table
+- cross_segment_continuity_targets
+
+段落划分必须按叙事功能、动作链和状态变化，不得机械按秒切。
+
 示例：
 SH01 / 0.0-1.2s / high wide / slow push-in / evidence: high battlefield overview to rear angle cut / function: establish world rule / continuity: line direction leads into SH02.
 
@@ -190,6 +197,23 @@ P2.5 DNA 取证审核
 ====================
 
 在进入变量/不变量之前，必须执行 DNA 取证审核。没有通过，不得进入资产、故事板或 Seedance。
+
+B 线长片还必须执行 B_FRONTEND_SIGNOFF：
+
+```text
+B_FRONTEND_SIGNOFF: PASS / FAIL
+whole_film_structure_complete: yes/no
+segment_dna_ledgers_complete: yes/no
+cross_segment_continuity_bible_complete: yes/no
+segment_in_out_states_chain: yes/no
+asset_needs_mapped: yes/no
+storyboard_needs_mapped: yes/no
+sound_post_boundaries_clear: yes/no
+omission_audit_passed: yes/no
+qa_score: [0-100]
+```
+
+任一关键项为 no 或 qa_score < 95，不得进入资产、故事板或 Seedance。
 
 必须输出：
 

@@ -16,6 +16,7 @@ QA report, score, pass/fail, required fixes, accepted residual risks.
 
 - `DNA_SIGNOFF` passes.
 - Shot count, state changes, transformation, hands/body, VFX mechanism, sound cues, dialogue timing, and payoff are represented.
+- Branch B longform front-end signoff passes: whole-film structure, segment DNA ledgers, cross-segment continuity bible, segment in/out chain, asset needs, storyboard needs, and omission audit are complete.
 - No source/reference-process language appears in final prompts.
 - A-line asset consistency, B-line asset+storyboard longform rules, C-line compactness rules, or D-line prompt-variable rules pass according to branch.
 - Final score is at least 95/100. Anything below 95 is not user-deliverable.
