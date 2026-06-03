@@ -1,0 +1,197 @@
+# Single Markdown Package Template
+
+Use this structure for the final answer.
+
+# [项目名] B 线后端生产包
+
+## 0. 使用说明
+
+本文件按 B 线后端生产顺序执行：资产 -> 干净故事板 -> Seedance 2.0 视频。  
+绿色上传提醒只给用户操作用，不要复制进 Image2 或 Seedance。
+
+---
+
+## 1. 阶段一：资产提示词
+
+### 1.1 角色资产 / Character Asset
+
+<span style="color:#15803d;font-weight:600;">上传提醒：如需参考用户已有角色图，请上传 @图片1 = A01 / 角色参考图。此提醒不属于提示词。</span>
+
+#### ZH_IMAGE2_PROMPT
+
+```text
+[中文角色资产提示词]
+```
+
+#### EN_IMAGE2_PROMPT
+
+```text
+[English character asset prompt]
+```
+
+---
+
+### 1.2 场景资产 / Scene Asset
+
+<span style="color:#15803d;font-weight:600;">上传提醒：如需参考用户已有场景图，请上传 @图片2 = A03 / 场景参考图。此提醒不属于提示词。</span>
+
+#### ZH_IMAGE2_PROMPT
+
+```text
+[中文场景资产提示词]
+```
+
+#### EN_IMAGE2_PROMPT
+
+```text
+[English scene asset prompt]
+```
+
+---
+
+### 1.3 道具资产 / Prop Asset
+
+<span style="color:#15803d;font-weight:600;">上传提醒：如需参考用户已有道具图，请上传 @图片3 = A05 / 道具参考图。此提醒不属于提示词。</span>
+
+#### ZH_IMAGE2_PROMPT
+
+```text
+[中文道具资产提示词]
+```
+
+#### EN_IMAGE2_PROMPT
+
+```text
+[English prop asset prompt]
+```
+
+---
+
+## 2. 阶段二：干净故事板提示词
+
+<span style="color:#15803d;font-weight:600;">上传提醒：生成故事板时请参考 @图片1 = A01 角色资产、@图片2 = A03 场景资产、@图片3 = A05 道具资产。此提醒不属于提示词。</span>
+
+### 2.1 ZH_IMAGE2_PROMPT
+
+```text
+TEMPLATE_CODE：CLEAN_STORYBOARD_CONTROL_TEMPLATE
+BOARD_ID：S01_CLEAN_STORYBOARD_CONTROL
+PART：[Part 编号 / 00:00-00:15]
+LAYOUT：[例如 4x2 horizontal storyboard, 8 clean panels]
+
+[中文干净故事板提示词]
+```
+
+### 2.2 EN_IMAGE2_PROMPT
+
+```text
+TEMPLATE_CODE: CLEAN_STORYBOARD_CONTROL_TEMPLATE
+BOARD_ID: S01_CLEAN_STORYBOARD_CONTROL
+PART: [Part ID / 00:00-00:15]
+LAYOUT: [for example 4x2 horizontal storyboard, 8 clean panels]
+
+[English clean storyboard prompt]
+```
+
+### 2.3 SEEDANCE_MOTION_TEXT
+
+#### 中文
+
+```text
+SH01：[运镜、动作方向、速度、切点功能]
+SH02：[运镜、动作方向、速度、切点功能]
+...
+```
+
+#### English
+
+```text
+SH01: [camera movement, action direction, speed, cut function]
+SH02: [camera movement, action direction, speed, cut function]
+...
+```
+
+---
+
+## 3. 阶段三：Seedance 2.0 视频提示词
+
+<span style="color:#15803d;font-weight:600;">上传提醒：Seedance 2.0 全能参考请按顺序上传：@图片1 = A01 / 角色资产；@图片2 = A03 / 场景资产；@图片3 = A05 / 道具资产；@图片4 = S01_CLEAN_STORYBOARD_CONTROL / 干净故事板。此提醒不属于提示词。</span>
+
+### 3.1 ZH_SEEDANCE_PROMPT
+
+```text
+[VIDEO TASK]
+
+[REFERENCE HIERARCHY]
+
+[STORYBOARD LOGIC]
+
+[SEEDANCE_MOTION_TEXT]
+
+[SEGMENT STATE]
+
+[SHOT-BY-SHOT TIMING]
+
+[ACTION / BLOCKING]
+
+[CAMERA MOVEMENT]
+
+[LIGHTING / VFX]
+
+[REALISTIC CINEMA STYLE LOCK]
+
+[DIALOGUE / VOICE PERFORMANCE]
+
+[SOUND EFFECTS FOR POST]
+
+[NEGATIVE PROMPT]
+```
+
+### 3.2 EN_SEEDANCE_PROMPT
+
+```text
+[VIDEO TASK]
+
+[REFERENCE HIERARCHY]
+
+[STORYBOARD LOGIC]
+
+[SEEDANCE_MOTION_TEXT]
+
+[SEGMENT STATE]
+
+[SHOT-BY-SHOT TIMING]
+
+[ACTION / BLOCKING]
+
+[CAMERA MOVEMENT]
+
+[LIGHTING / VFX]
+
+[REALISTIC CINEMA STYLE LOCK]
+
+[DIALOGUE / VOICE PERFORMANCE]
+
+[SOUND EFFECTS FOR POST]
+
+[NEGATIVE PROMPT]
+```
+
+---
+
+## 4. QA 自检
+
+```text
+BACKEND_PRODUCTION_QA:
+- 是否只输出一个 .md 文件：是 / 否
+- 是否三阶段顺序完整：是 / 否
+- 是否全部双语：是 / 否
+- 绿色上传提醒是否在提示词外：是 / 否
+- 资产编号是否统一：是 / 否
+- 故事板是否干净：是 / 否
+- SEEDANCE_MOTION_TEXT 是否完整：是 / 否
+- Seedance 是否明确引用 @图片编号 / 资产编号 / 模块标签：是 / 否
+- REALISTIC CINEMA STYLE LOCK 是否动态贴合当前风险：是 / 否
+- NEGATIVE PROMPT 是否只写当前真实风险：是 / 否
+- 评分是否达到 95/100：是 / 否
+```

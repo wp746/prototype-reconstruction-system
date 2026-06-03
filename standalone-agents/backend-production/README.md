@@ -53,3 +53,22 @@
 - [schemas/backend-production-input.schema.json](schemas/backend-production-input.schema.json)：建议输入字段 schema。
 - [examples/example-package-skeleton.md](examples/example-package-skeleton.md)：最终交付文件骨架示例。
 
+## 作为 Skill 分享给同事
+
+如果同事使用 Codex / agent skill，可以直接复制仓库里的：
+
+```text
+skills/backend-production/
+```
+
+到本机：
+
+```text
+~/.codex/skills/backend-production/
+```
+
+复制后在新会话里可以这样调用：
+
+```text
+使用 $backend-production，把这份 B 线 handoff 生成一个双语后端生产 Markdown 包。
+```

@@ -1,0 +1,8 @@
+interface:
+  display_name: "后端生产"
+  short_description: "B线资产故事板Seedance生产包"
+  brand_color: "#15803D"
+  default_prompt: "Use $backend-production to turn my Branch B handoff into one bilingual backend production Markdown package."
+policy:
+  allow_implicit_invocation: true
+
