@@ -50,6 +50,7 @@
 - [AGENT.md](AGENT.md)：后端生产 agent 的完整执行指令。
 - [templates/B_LINE_SINGLE_MD_PACKAGE_TEMPLATE_V1.md](templates/B_LINE_SINGLE_MD_PACKAGE_TEMPLATE_V1.md)：最终单文件生产包模板。
 - [templates/UPLOAD_REMINDER_STYLE.md](templates/UPLOAD_REMINDER_STYLE.md)：绿色上传提醒规范。
+- [templates/FRONTEND_HANDOFF_NORMALIZATION.md](templates/FRONTEND_HANDOFF_NORMALIZATION.md)：模糊前端交接的预检与补齐标准。
 - [schemas/backend-production-input.schema.json](schemas/backend-production-input.schema.json)：建议输入字段 schema。
 - [examples/example-package-skeleton.md](examples/example-package-skeleton.md)：最终交付文件骨架示例。
 

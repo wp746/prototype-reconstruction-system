@@ -4,6 +4,21 @@
   "type": "object",
   "required": ["project", "frontend_handoff", "asset_plan", "shot_plan", "style_risk"],
   "properties": {
+    "normalization": {
+      "type": "object",
+      "properties": {
+        "input_quality": {
+          "type": "string",
+          "enum": ["standard", "usable_but_incomplete", "vague", "blocked"]
+        },
+        "inferred_fields": { "type": "array", "items": { "type": "string" } },
+        "missing_fields": { "type": "array", "items": { "type": "string" } },
+        "assumptions": { "type": "array", "items": { "type": "string" } },
+        "needs_model_completion": { "type": "boolean" },
+        "user_questions": { "type": "array", "items": { "type": "string" } },
+        "handoff_ready": { "type": "boolean" }
+      }
+    },
     "project": {
       "type": "object",
       "required": ["project_name", "segment_id", "runtime", "aspect_ratio", "target_model"],
@@ -68,4 +83,3 @@
     }
   }
 }
-

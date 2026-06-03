@@ -25,7 +25,7 @@ description: "Use when the user wants a fixed AIGC video backend production pipe
 - 想把任意做片方向接到固定后端生产闭环。
 - 需要一个双语 `.md` 文件，包含资产提示词、故事板提示词、Seedance 提示词。
 
-如果用户还没有完成前端需求和镜头拆解，不要假装已完成。要求补齐输入。
+如果用户还没有完成前端需求和镜头拆解，先执行“前端交接标准化层”。能保守补齐的字段由你补齐；不能补齐的字段列成缺失项；如果用户允许，让大模型先按 [frontend-handoff-normalization.md](references/frontend-handoff-normalization.md) 规范化，再进入后端生产。
 
 ## Required Inputs
 
@@ -64,7 +64,43 @@ STYLE_RISK:
 - final_frame_risk
 ```
 
-If the user gives unstructured notes, infer conservatively and mark missing fields in the output preflight section. If `SHOT_PLAN`, `ASSET_PLAN`, or `STYLE_RISK` is absent, ask for it or produce only a preflight checklist, not the final package.
+## Frontend Handoff Normalization
+
+Before generating the final package, run this preflight:
+
+```text
+FRONTEND_HANDOFF_NORMALIZATION:
+- input_quality: standard / usable_but_incomplete / vague / blocked
+- inferred_fields:
+- missing_fields:
+- assumptions:
+- needs_model_completion: yes / no
+- user_questions:
+- handoff_ready: yes / no
+```
+
+Use these rules:
+
+1. If input is standard, proceed directly.
+2. If input is usable but incomplete, infer conservatively and mark assumptions.
+3. If input is vague but contains enough story/asset/shot clues, normalize it into the required schema before production.
+4. If required fields are absent and cannot be inferred, stop and ask for the minimum missing fields.
+5. If the user asks you to proceed despite fuzzy input, first generate a normalized handoff using [frontend-handoff-normalization.md](references/frontend-handoff-normalization.md), then continue only if `handoff_ready = yes`.
+
+Minimum quality standard for backend comfort:
+
+```text
+BACKEND_READY_STANDARD:
+- project/runtime/aspect/model known
+- at least one character, one scene, and one prop/mechanism defined or intentionally marked none
+- shot_count and storyboard_layout known
+- every SH has timecode or estimated duration
+- every SH has shot_size, composition, action_state, camera_movement, action_direction, cut_function
+- in_state/action_chain/out_state are clear
+- style_risk includes likely drift and final_frame_risk
+```
+
+If the user gives unstructured notes, infer conservatively and mark missing fields in the output preflight section. If `SHOT_PLAN`, `ASSET_PLAN`, or `STYLE_RISK` is absent and cannot be inferred, ask for it or produce only a preflight checklist, not the final package.
 
 ## Output Contract
 
@@ -73,10 +109,11 @@ Use the structure in [single-md-package-template.md](references/single-md-packag
 Final package sections:
 
 1. `## 0. 使用说明`
-2. `## 1. 阶段一：资产提示词`
-3. `## 2. 阶段二：干净故事板提示词`
-4. `## 3. 阶段三：Seedance 2.0 视频提示词`
-5. `## 4. QA 自检`
+2. `## 0.1 前端交接标准化`
+3. `## 1. 阶段一：资产提示词`
+4. `## 2. 阶段二：干净故事板提示词`
+5. `## 3. 阶段三：Seedance 2.0 视频提示词`
+6. `## 4. QA 自检`
 
 All prompts must be bilingual:
 
@@ -224,6 +261,8 @@ Checklist:
 ```text
 BACKEND_PRODUCTION_QA:
 - one Markdown file only
+- frontend handoff normalized or confirmed standard
+- missing fields resolved or explicitly blocked
 - three stages complete
 - all prompts bilingual
 - green upload reminders outside prompt blocks

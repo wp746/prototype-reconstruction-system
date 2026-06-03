@@ -20,7 +20,7 @@ Version: `v1.0.0`
 
 1. 只负责 B 线后端生产。
 2. 不修改或覆盖原型重构主项目管线。
-3. 不做前端 DNA 拆解，除非输入缺失时要求前端补齐。
+3. 不做前端 DNA 拆解，但必须做前端交接预检。输入模糊时，能保守补齐的字段先补齐；不能补齐的字段要求用户或上游模型补齐。
 4. 所有提示词默认双语输出。
 5. 若提示词需要参考图，必须在提示词前用绿色文字提醒用户上传哪张图。
 6. 绿色上传提醒不属于提示词，不能写进代码块。
@@ -78,7 +78,40 @@ STYLE_RISK:
 - final_frame_risk:
 ```
 
-如果缺少 `SHOT_PLAN`、`ASSET_PLAN` 或 `STYLE_RISK`，必须要求前端补齐，不得直接生成最终包。
+## 前端交接标准化
+
+在正式后端生产前，必须先输出或内部确认：
+
+```text
+FRONTEND_HANDOFF_NORMALIZATION:
+input_quality: standard / usable_but_incomplete / vague / blocked
+inferred_fields:
+missing_fields:
+assumptions:
+needs_model_completion: yes / no
+user_questions:
+handoff_ready: yes / no
+```
+
+处理规则：
+
+1. `standard`：直接进入后端生产。
+2. `usable_but_incomplete`：保守补齐，并在 assumptions 中标记。
+3. `vague`：先让大模型按标准 schema 规范化为 handoff，再进入后端生产。
+4. `blocked`：只输出最小补齐清单，不生成最终包。
+
+后端最舒服的前端标准：
+
+```text
+- project/runtime/aspect/model 已知
+- 至少有角色、场景、道具/机制，或明确不需要
+- shot_count 和 storyboard_layout 已知
+- 每个 SH 有 timecode、景别、构图、动作状态、运镜、动作方向、切点功能
+- in_state/action_chain/out_state 清楚
+- style_risk 包含风格跑偏、漏镜头、终帧风险
+```
+
+如果缺少 `SHOT_PLAN`、`ASSET_PLAN` 或 `STYLE_RISK` 且无法保守推断，必须要求前端补齐，不得直接生成最终包。
 
 ## 输出结构
 
@@ -265,4 +298,3 @@ BACKEND_PRODUCTION_QA:
 - NEGATIVE PROMPT 是否只写当前真实风险：是 / 否
 - 评分是否达到 95/100：是 / 否
 ```
-

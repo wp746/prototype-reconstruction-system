@@ -11,6 +11,19 @@ Template Code: `B_LINE_SINGLE_MD_PACKAGE_TEMPLATE_V1`
 本文件按 B 线后端生产顺序执行：资产 -> 干净故事板 -> Seedance 2.0 视频。  
 绿色上传提醒只给用户操作用，不要复制进 Image2 或 Seedance。
 
+## 0.1 前端交接标准化
+
+```text
+FRONTEND_HANDOFF_NORMALIZATION:
+input_quality:
+inferred_fields:
+missing_fields:
+assumptions:
+needs_model_completion:
+user_questions:
+handoff_ready:
+```
+
 ---
 
 ## 1. 阶段一：资产提示词
@@ -186,6 +199,8 @@ SH02: [camera movement, action direction, speed, cut function]
 ```text
 BACKEND_PRODUCTION_QA:
 - 是否只输出一个 .md 文件：是 / 否
+- 前端交接是否已标准化或确认标准：是 / 否
+- 缺失字段是否已补齐，或已明确阻塞：是 / 否
 - 是否三阶段顺序完整：是 / 否
 - 是否全部双语：是 / 否
 - 绿色上传提醒是否在提示词外：是 / 否
