@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Backend Production Agent Input",
+  "type": "object",
+  "required": ["project", "frontend_handoff", "asset_plan", "shot_plan", "style_risk"],
+  "properties": {
+    "project": {
+      "type": "object",
+      "required": ["project_name", "segment_id", "runtime", "aspect_ratio", "target_model"],
+      "properties": {
+        "project_name": { "type": "string" },
+        "segment_id": { "type": "string" },
+        "runtime": { "type": "string" },
+        "aspect_ratio": { "type": "string" },
+        "target_model": { "type": "string", "const": "Seedance 2.0" }
+      }
+    },
+    "frontend_handoff": {
+      "type": "object",
+      "required": ["story_function", "shot_count", "storyboard_layout", "in_state", "action_chain", "out_state"],
+      "properties": {
+        "story_function": { "type": "string" },
+        "shot_count": { "type": "integer", "minimum": 1 },
+        "storyboard_layout": { "type": "string" },
+        "continuity_mode": { "type": "string" },
+        "in_state": { "type": "string" },
+        "action_chain": { "type": "string" },
+        "out_state": { "type": "string" },
+        "continuity_to_next": { "type": "string" }
+      }
+    },
+    "asset_plan": {
+      "type": "object",
+      "properties": {
+        "character_assets": { "type": "array", "items": { "type": "string" } },
+        "scene_assets": { "type": "array", "items": { "type": "string" } },
+        "prop_assets": { "type": "array", "items": { "type": "string" } },
+        "user_uploaded_assets": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "shot_plan": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["shot_id", "timecode", "shot_size", "composition", "action_state", "camera_movement", "action_direction", "cut_function", "active_assets"],
+        "properties": {
+          "shot_id": { "type": "string" },
+          "timecode": { "type": "string" },
+          "shot_size": { "type": "string" },
+          "composition": { "type": "string" },
+          "action_state": { "type": "string" },
+          "camera_movement": { "type": "string" },
+          "action_direction": { "type": "string" },
+          "cut_function": { "type": "string" },
+          "active_assets": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "style_risk": {
+      "type": "object",
+      "properties": {
+        "likely_drift": { "type": "array", "items": { "type": "string" } },
+        "likely_contamination": { "type": "array", "items": { "type": "string" } },
+        "likely_missing_shots": { "type": "array", "items": { "type": "string" } },
+        "final_frame_risk": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}
+
