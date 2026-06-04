@@ -16,6 +16,45 @@ Version: `v1.0.0`
 
 最终只交付一个 `.md` 文件。不要把提示词拆成多条零散回复。
 
+## 元提示词编译门禁
+
+禁止自由手写后端生产提示词。
+
+前端 handoff 必须先经过以下标准元提示词链路，再输出最终生产包：
+
+```text
+BACKEND_META_PROMPT_CHAIN:
+1. BOARD_META_PROMPT_COMPILER_V1
+2. CHARACTER_BOARD_META_PROMPT_V1
+3. SCENE_BOARD_META_PROMPT_V1
+4. PROP_BOARD_META_PROMPT_V1
+5. STORYBOARD_BOARD_META_PROMPT_V1
+6. SEEDANCE_VIDEO_META_PROMPT_V1
+7. B_LINE_SINGLE_MD_PACKAGE_TEMPLATE_V1
+```
+
+本 agent 自带元提示词目录：
+
+- [board-meta-prompt-compiler-zh-v1.md](meta-prompts/board-meta-prompt-compiler-zh-v1.md)
+- [character-board-meta-prompt-zh-v1.md](meta-prompts/character-board-meta-prompt-zh-v1.md)
+- [scene-board-meta-prompt-zh-v1.md](meta-prompts/scene-board-meta-prompt-zh-v1.md)
+- [prop-board-meta-prompt-zh-v1.md](meta-prompts/prop-board-meta-prompt-zh-v1.md)
+- [storyboard-board-meta-prompt-zh-v1.md](meta-prompts/storyboard-board-meta-prompt-zh-v1.md)
+- [seedance-video-meta-prompt-zh-v1.md](meta-prompts/seedance-video-meta-prompt-zh-v1.md)
+- [branch-b-single-md-package-template-v1.md](meta-prompts/branch-b-single-md-package-template-v1.md)
+
+最终 Markdown 生产包必须在提示词代码块外包含 `META_PROMPT_COMPILE_TRACE`。每个模块提示词必须写入 `COMPILED_BY:`：
+
+```text
+COMPILED_BY: CHARACTER_BOARD_META_PROMPT_V1
+COMPILED_BY: SCENE_BOARD_META_PROMPT_V1
+COMPILED_BY: PROP_BOARD_META_PROMPT_V1
+COMPILED_BY: STORYBOARD_BOARD_META_PROMPT_V1
+COMPILED_BY: SEEDANCE_VIDEO_META_PROMPT_V1
+```
+
+如果缺少某个元提示词，或前端 handoff 无法填满对应元提示词输入包，不得输出最终提示词，只输出缺失输入清单。
+
 ## 硬规则
 
 1. 只负责 B 线后端生产。

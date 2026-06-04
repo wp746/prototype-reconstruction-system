@@ -30,6 +30,21 @@ forbidden_styles: 二次元、动漫插画、赛璐璐、漫画线稿、真人�
 style_source: explicit
 ```
 
+## 0.2 元提示词编译链路
+
+```text
+META_PROMPT_COMPILE_TRACE:
+- board_compiler: BOARD_META_PROMPT_COMPILER_V1
+- character_asset_prompt: CHARACTER_BOARD_META_PROMPT_V1
+- scene_asset_prompt: SCENE_BOARD_META_PROMPT_V1
+- prop_asset_prompt: PROP_BOARD_META_PROMPT_V1
+- storyboard_prompt: STORYBOARD_BOARD_META_PROMPT_V1
+- seedance_video_prompt: SEEDANCE_VIDEO_META_PROMPT_V1
+- final_package: B_LINE_SINGLE_MD_PACKAGE_TEMPLATE_V1
+compile_status: passed
+blocked_reason: none
+```
+
 ---
 
 ## 1. 阶段一：资产提示词
@@ -41,6 +56,8 @@ style_source: explicit
 #### ZH_IMAGE2_PROMPT
 
 ```text
+COMPILED_BY: CHARACTER_BOARD_META_PROMPT_V1
+
 STYLE_CONTRACT_LOCK:
 高端 3D 动画电影角色资产，不是二次元，不是动漫插画，不是真人照片，不是游戏 UI 立绘。A01 使用统一 3D 材质、体积光、空间透视、柔和边缘和受控细节。
 
@@ -53,6 +70,8 @@ STYLE_NEGATIVE:
 #### EN_IMAGE2_PROMPT
 
 ```text
+COMPILED_BY: CHARACTER_BOARD_META_PROMPT_V1
+
 STYLE_CONTRACT_LOCK:
 High-end 3D animated film character asset, not 2D anime, not anime illustration, not live-action photography, not game UI character art. A01 uses unified 3D materials, volumetric lighting, spatial perspective, refined edges, and controlled details.
 
@@ -69,6 +88,8 @@ Generate the A01 character asset board with M01 FACE, M03 COSTUME, M05 BODY SCAL
 #### ZH_IMAGE2_PROMPT
 
 ```text
+COMPILED_BY: SCENE_BOARD_META_PROMPT_V1
+
 STYLE_CONTRACT_LOCK:
 高端 3D 动画电影场景资产，与 A01 使用同一 3D 材质语言、体积光、电影空间透视和受控色彩系统，不是动漫背景插画。
 
@@ -81,6 +102,8 @@ STYLE_NEGATIVE:
 #### EN_IMAGE2_PROMPT
 
 ```text
+COMPILED_BY: SCENE_BOARD_META_PROMPT_V1
+
 STYLE_CONTRACT_LOCK:
 High-end 3D animated film scene asset, matching A01 with the same 3D material language, volumetric lighting, cinematic spatial perspective, and controlled palette. Not anime background illustration.
 
@@ -97,6 +120,8 @@ Generate the A03 scene asset board with V01 ESTABLISHING, V04 CAMERA A, V05 CAME
 #### ZH_IMAGE2_PROMPT
 
 ```text
+COMPILED_BY: PROP_BOARD_META_PROMPT_V1
+
 STYLE_CONTRACT_LOCK:
 高端 3D 动画电影道具资产，与 A01 和 A03 使用同一 3D 材质、能量光效、空间透视和柔和边缘，不是平面图标或动漫道具。
 
@@ -109,6 +134,8 @@ STYLE_NEGATIVE:
 #### EN_IMAGE2_PROMPT
 
 ```text
+COMPILED_BY: PROP_BOARD_META_PROMPT_V1
+
 STYLE_CONTRACT_LOCK:
 High-end 3D animated film prop asset, matching A01 and A03 with the same 3D materials, energy lighting, spatial perspective, and refined edges. Not flat icon art or anime prop art.
 
@@ -127,6 +154,8 @@ Generate the A05 prop asset board with P01 HERO PROP, P04 ACTIVE STATE, P06 HAND
 ### 2.1 ZH_IMAGE2_PROMPT
 
 ```text
+COMPILED_BY: STORYBOARD_BOARD_META_PROMPT_V1
+
 TEMPLATE_CODE：CLEAN_STORYBOARD_CONTROL_TEMPLATE
 BOARD_ID：S01_CLEAN_STORYBOARD_CONTROL
 PART：Part 1 / 00:00-00:15
@@ -138,6 +167,8 @@ LAYOUT：4x2 horizontal storyboard, 8 clean panels
 ### 2.2 EN_IMAGE2_PROMPT
 
 ```text
+COMPILED_BY: STORYBOARD_BOARD_META_PROMPT_V1
+
 TEMPLATE_CODE: CLEAN_STORYBOARD_CONTROL_TEMPLATE
 BOARD_ID: S01_CLEAN_STORYBOARD_CONTROL
 PART: Part 1 / 00:00-00:15
@@ -183,6 +214,8 @@ SH08: stable wide final frame.
 ### 3.1 ZH_SEEDANCE_PROMPT
 
 ```text
+COMPILED_BY: SEEDANCE_VIDEO_META_PROMPT_V1
+
 [VIDEO TASK]
 生成 15 秒电影级视频。
 
@@ -226,6 +259,8 @@ SH01-SH08 完整。
 ### 3.2 EN_SEEDANCE_PROMPT
 
 ```text
+COMPILED_BY: SEEDANCE_VIDEO_META_PROMPT_V1
+
 [VIDEO TASK]
 Generate a 15-second cinematic video.
 
@@ -274,6 +309,8 @@ Avoid current real risks such as shot merging, asset drift, and wrong final fram
 BACKEND_PRODUCTION_QA:
 - 是否只输出一个 .md 文件：是
 - 前端交接是否已标准化或确认标准：是
+- META_PROMPT_COMPILE_TRACE 是否完整：是
+- 每个模块是否经过对应元提示词编译：是
 - 缺失字段是否已补齐，或已明确阻塞：是
 - 是否三阶段顺序完整：是
 - 是否全部双语：是

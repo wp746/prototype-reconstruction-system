@@ -36,6 +36,21 @@ forbidden_styles:
 style_source:
 ```
 
+## 0.2 元提示词编译链路
+
+```text
+META_PROMPT_COMPILE_TRACE:
+- board_compiler: BOARD_META_PROMPT_COMPILER_V1
+- character_asset_prompt: CHARACTER_BOARD_META_PROMPT_V1
+- scene_asset_prompt: SCENE_BOARD_META_PROMPT_V1
+- prop_asset_prompt: PROP_BOARD_META_PROMPT_V1
+- storyboard_prompt: STORYBOARD_BOARD_META_PROMPT_V1
+- seedance_video_prompt: SEEDANCE_VIDEO_META_PROMPT_V1
+- final_package: B_LINE_SINGLE_MD_PACKAGE_TEMPLATE_V1
+compile_status: passed / blocked
+blocked_reason:
+```
+
 ---
 
 ## 1. 阶段一：资产提示词
@@ -47,6 +62,8 @@ style_source:
 #### ZH_IMAGE2_PROMPT
 
 ```text
+COMPILED_BY: CHARACTER_BOARD_META_PROMPT_V1
+
 STYLE_CONTRACT_LOCK:
 [中文风格合同锁：明确 render_style / medium / realism_level / material_finish / lighting_language / lens_language / color_palette。若是 3D，必须写明高端 3D 动画电影资产，不是二次元，不是动漫插画，不是真人照片。]
 
@@ -59,6 +76,8 @@ STYLE_NEGATIVE:
 #### EN_IMAGE2_PROMPT
 
 ```text
+COMPILED_BY: CHARACTER_BOARD_META_PROMPT_V1
+
 STYLE_CONTRACT_LOCK:
 [English style contract lock: define render_style / medium / realism_level / material_finish / lighting_language / lens_language / color_palette. For 3D, state high-end 3D animated film asset, not 2D anime, not anime illustration, not live-action photography.]
 
@@ -77,6 +96,8 @@ STYLE_NEGATIVE:
 #### ZH_IMAGE2_PROMPT
 
 ```text
+COMPILED_BY: SCENE_BOARD_META_PROMPT_V1
+
 STYLE_CONTRACT_LOCK:
 [中文风格合同锁：必须与角色资产同一风格、同一材质语言、同一光线和色彩系统。]
 
@@ -89,6 +110,8 @@ STYLE_NEGATIVE:
 #### EN_IMAGE2_PROMPT
 
 ```text
+COMPILED_BY: SCENE_BOARD_META_PROMPT_V1
+
 STYLE_CONTRACT_LOCK:
 [English style contract lock: must match the character asset style, material language, lighting system, and palette.]
 
@@ -107,6 +130,8 @@ STYLE_NEGATIVE:
 #### ZH_IMAGE2_PROMPT
 
 ```text
+COMPILED_BY: PROP_BOARD_META_PROMPT_V1
+
 STYLE_CONTRACT_LOCK:
 [中文风格合同锁：必须与角色和场景资产同一风格、同一材质语言、同一光效逻辑。]
 
@@ -119,6 +144,8 @@ STYLE_NEGATIVE:
 #### EN_IMAGE2_PROMPT
 
 ```text
+COMPILED_BY: PROP_BOARD_META_PROMPT_V1
+
 STYLE_CONTRACT_LOCK:
 [English style contract lock: must match the character and scene asset style, material language, and lighting logic.]
 
@@ -137,6 +164,8 @@ STYLE_NEGATIVE:
 ### 2.1 ZH_IMAGE2_PROMPT
 
 ```text
+COMPILED_BY: STORYBOARD_BOARD_META_PROMPT_V1
+
 TEMPLATE_CODE：CLEAN_STORYBOARD_CONTROL_TEMPLATE
 BOARD_ID：S01_CLEAN_STORYBOARD_CONTROL
 PART：[Part 编号 / 00:00-00:15]
@@ -148,6 +177,8 @@ LAYOUT：[例如 4x2 horizontal storyboard, 8 clean panels]
 ### 2.2 EN_IMAGE2_PROMPT
 
 ```text
+COMPILED_BY: STORYBOARD_BOARD_META_PROMPT_V1
+
 TEMPLATE_CODE: CLEAN_STORYBOARD_CONTROL_TEMPLATE
 BOARD_ID: S01_CLEAN_STORYBOARD_CONTROL
 PART: [Part ID / 00:00-00:15]
@@ -183,6 +214,8 @@ SH02: [camera movement, action direction, speed, cut function]
 ### 3.1 ZH_SEEDANCE_PROMPT
 
 ```text
+COMPILED_BY: SEEDANCE_VIDEO_META_PROMPT_V1
+
 [VIDEO TASK]
 
 [REFERENCE HIERARCHY]
@@ -214,6 +247,8 @@ SH02: [camera movement, action direction, speed, cut function]
 ### 3.2 EN_SEEDANCE_PROMPT
 
 ```text
+COMPILED_BY: SEEDANCE_VIDEO_META_PROMPT_V1
+
 [VIDEO TASK]
 
 [REFERENCE HIERARCHY]
@@ -250,6 +285,8 @@ SH02: [camera movement, action direction, speed, cut function]
 BACKEND_PRODUCTION_QA:
 - 是否只输出一个 .md 文件：是 / 否
 - 前端交接是否已标准化或确认标准：是 / 否
+- META_PROMPT_COMPILE_TRACE 是否完整：是 / 否
+- 每个模块是否经过对应元提示词编译：是 / 否
 - 缺失字段是否已补齐，或已明确阻塞：是 / 否
 - STYLE_CONTRACT 是否已明确或可靠推断：是 / 否
 - 资产提示词是否全部包含 STYLE_CONTRACT_LOCK：是 / 否

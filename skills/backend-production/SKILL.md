@@ -15,6 +15,45 @@ description: "Use when the user wants a fixed AIGC video backend production pipe
 
 最终只输出一个 `.md` 文件。不要把资产、故事板、视频提示词拆成零散回复。
 
+## Meta Prompt Compiler Gate
+
+Do not write backend production prompts freehand.
+
+Every frontend handoff must pass through these standard meta prompts before final output:
+
+```text
+BACKEND_META_PROMPT_CHAIN:
+1. BOARD_META_PROMPT_COMPILER_V1
+2. CHARACTER_BOARD_META_PROMPT_V1
+3. SCENE_BOARD_META_PROMPT_V1
+4. PROP_BOARD_META_PROMPT_V1
+5. STORYBOARD_BOARD_META_PROMPT_V1
+6. SEEDANCE_VIDEO_META_PROMPT_V1
+7. B_LINE_SINGLE_MD_PACKAGE_TEMPLATE_V1
+```
+
+Local meta prompt files:
+
+- [board-meta-prompt-compiler-zh-v1.md](meta-prompts/board-meta-prompt-compiler-zh-v1.md)
+- [character-board-meta-prompt-zh-v1.md](meta-prompts/character-board-meta-prompt-zh-v1.md)
+- [scene-board-meta-prompt-zh-v1.md](meta-prompts/scene-board-meta-prompt-zh-v1.md)
+- [prop-board-meta-prompt-zh-v1.md](meta-prompts/prop-board-meta-prompt-zh-v1.md)
+- [storyboard-board-meta-prompt-zh-v1.md](meta-prompts/storyboard-board-meta-prompt-zh-v1.md)
+- [seedance-video-meta-prompt-zh-v1.md](meta-prompts/seedance-video-meta-prompt-zh-v1.md)
+- [branch-b-single-md-package-template-v1.md](meta-prompts/branch-b-single-md-package-template-v1.md)
+
+The final Markdown package must include a `META_PROMPT_COMPILE_TRACE` block outside prompt code blocks. Each module prompt must include a `COMPILED_BY:` line:
+
+```text
+COMPILED_BY: CHARACTER_BOARD_META_PROMPT_V1
+COMPILED_BY: SCENE_BOARD_META_PROMPT_V1
+COMPILED_BY: PROP_BOARD_META_PROMPT_V1
+COMPILED_BY: STORYBOARD_BOARD_META_PROMPT_V1
+COMPILED_BY: SEEDANCE_VIDEO_META_PROMPT_V1
+```
+
+If a required meta prompt cannot be located or the frontend handoff cannot fill its input package, do not produce final prompts. Produce the missing input list instead.
+
 ## When To Use
 
 使用本 skill 当用户：

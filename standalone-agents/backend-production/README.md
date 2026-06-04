@@ -53,6 +53,7 @@
 - [templates/B_LINE_SINGLE_MD_PACKAGE_TEMPLATE_V1.md](templates/B_LINE_SINGLE_MD_PACKAGE_TEMPLATE_V1.md)：最终单文件生产包模板。
 - [templates/UPLOAD_REMINDER_STYLE.md](templates/UPLOAD_REMINDER_STYLE.md)：绿色上传提醒规范。
 - [templates/FRONTEND_HANDOFF_NORMALIZATION.md](templates/FRONTEND_HANDOFF_NORMALIZATION.md)：模糊前端交接的预检与补齐标准。
+- [meta-prompts/](meta-prompts)：B 线后端生产的标准元提示词编译层，角色、场景、道具、故事板和 Seedance 视频提示词都必须从这里编译。
 - [schemas/backend-production-input.schema.json](schemas/backend-production-input.schema.json)：建议输入字段 schema。
 - [examples/example-package-skeleton.md](examples/example-package-skeleton.md)：最终交付文件骨架示例。
 - [scripts/check_backend_package.py](scripts/check_backend_package.py)：最终 Markdown 生产包结构质检脚本。

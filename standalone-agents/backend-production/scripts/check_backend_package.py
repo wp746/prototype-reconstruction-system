@@ -31,6 +31,15 @@ REQUIRED_TOKENS = [
     "ZH_SEEDANCE_PROMPT",
     "EN_SEEDANCE_PROMPT",
     "FRONTEND_HANDOFF_NORMALIZATION",
+    "META_PROMPT_COMPILE_TRACE",
+    "BOARD_META_PROMPT_COMPILER_V1",
+    "CHARACTER_BOARD_META_PROMPT_V1",
+    "SCENE_BOARD_META_PROMPT_V1",
+    "PROP_BOARD_META_PROMPT_V1",
+    "STORYBOARD_BOARD_META_PROMPT_V1",
+    "SEEDANCE_VIDEO_META_PROMPT_V1",
+    "B_LINE_SINGLE_MD_PACKAGE_TEMPLATE_V1",
+    "COMPILED_BY",
     "STYLE_CONTRACT",
     "STYLE_CONTRACT_LOCK",
     "STYLE_NEGATIVE",
@@ -71,6 +80,14 @@ STYLE_CONTRACT_FIELDS = [
     "color_palette",
     "forbidden_styles",
     "style_source",
+]
+
+MODULE_COMPILER_TOKENS = [
+    "COMPILED_BY: CHARACTER_BOARD_META_PROMPT_V1",
+    "COMPILED_BY: SCENE_BOARD_META_PROMPT_V1",
+    "COMPILED_BY: PROP_BOARD_META_PROMPT_V1",
+    "COMPILED_BY: STORYBOARD_BOARD_META_PROMPT_V1",
+    "COMPILED_BY: SEEDANCE_VIDEO_META_PROMPT_V1",
 ]
 
 GREEN_REMINDER_RE = re.compile(r"<span\s+style=\"color:#15803d;[^>]*>.*?</span>", re.S)
@@ -128,6 +145,21 @@ def check_package(path: Path) -> tuple[list[str], list[str]]:
     for field in STYLE_CONTRACT_FIELDS:
         if field not in text:
             errors.append(f"missing STYLE_CONTRACT field `{field}`")
+
+    for compiler_token in MODULE_COMPILER_TOKENS:
+        if compiler_token not in text:
+            errors.append(f"missing module compiler trace `{compiler_token}`")
+
+    if text.count("COMPILED_BY: CHARACTER_BOARD_META_PROMPT_V1") < 2:
+        errors.append("character asset prompts must include COMPILED_BY in both CN and EN prompts")
+    if text.count("COMPILED_BY: SCENE_BOARD_META_PROMPT_V1") < 2:
+        errors.append("scene asset prompts must include COMPILED_BY in both CN and EN prompts")
+    if text.count("COMPILED_BY: PROP_BOARD_META_PROMPT_V1") < 2:
+        errors.append("prop asset prompts must include COMPILED_BY in both CN and EN prompts")
+    if text.count("COMPILED_BY: STORYBOARD_BOARD_META_PROMPT_V1") < 2:
+        errors.append("storyboard prompts must include COMPILED_BY in both CN and EN prompts")
+    if text.count("COMPILED_BY: SEEDANCE_VIDEO_META_PROMPT_V1") < 2:
+        errors.append("Seedance prompts must include COMPILED_BY in both CN and EN prompts")
 
     style_lock_count = text.count("STYLE_CONTRACT_LOCK")
     if style_lock_count < 6:
