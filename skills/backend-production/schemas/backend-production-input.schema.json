@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Backend Production Skill Input",
   "type": "object",
-  "required": ["project", "frontend_handoff", "asset_plan", "shot_plan", "style_risk"],
+  "required": ["project", "frontend_handoff", "asset_plan", "shot_plan", "style_risk", "style_contract"],
   "properties": {
     "normalization": {
       "type": "object",
@@ -79,6 +79,36 @@
         "likely_contamination": { "type": "array", "items": { "type": "string" } },
         "likely_missing_shots": { "type": "array", "items": { "type": "string" } },
         "final_frame_risk": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "style_contract": {
+      "type": "object",
+      "required": [
+        "source_style_evidence",
+        "render_style",
+        "medium",
+        "realism_level",
+        "material_finish",
+        "lighting_language",
+        "lens_language",
+        "color_palette",
+        "forbidden_styles",
+        "style_source"
+      ],
+      "properties": {
+        "source_style_evidence": { "type": "string" },
+        "render_style": { "type": "string" },
+        "medium": { "type": "string" },
+        "realism_level": { "type": "string" },
+        "material_finish": { "type": "string" },
+        "lighting_language": { "type": "string" },
+        "lens_language": { "type": "string" },
+        "color_palette": { "type": "string" },
+        "forbidden_styles": { "type": "array", "items": { "type": "string" } },
+        "style_source": {
+          "type": "string",
+          "enum": ["explicit", "inferred_from_assets", "inferred_from_reference", "needs_user"]
+        }
       }
     }
   }

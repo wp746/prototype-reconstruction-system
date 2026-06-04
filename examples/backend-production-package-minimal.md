@@ -16,6 +16,18 @@ assumptions: none
 needs_model_completion: no
 user_questions: none
 handoff_ready: yes
+
+STYLE_CONTRACT:
+source_style_evidence: 前端物料指定为高端 3D 动画电影资产，角色、场景、道具都使用统一 3D 材质和体积光。
+render_style: 高端 3D 动画电影
+medium: 3D animated film asset and cinematic video
+realism_level: stylized cinematic 3D, not photoreal live-action
+material_finish: refined 3D surfaces, soft roughness, controlled details, smooth gradients
+lighting_language: soft volumetric lighting, cinematic rim light, coherent scene shadows
+lens_language: cinematic perspective, spatial depth, no flat illustration layout
+color_palette: controlled cool blue and dark metal palette with restrained highlights
+forbidden_styles: 二次元、动漫插画、赛璐璐、漫画线稿、真人照片、游戏 UI 立绘、风格混搭
+style_source: explicit
 ```
 
 ---
@@ -29,12 +41,24 @@ handoff_ready: yes
 #### ZH_IMAGE2_PROMPT
 
 ```text
+STYLE_CONTRACT_LOCK:
+高端 3D 动画电影角色资产，不是二次元，不是动漫插画，不是真人照片，不是游戏 UI 立绘。A01 使用统一 3D 材质、体积光、空间透视、柔和边缘和受控细节。
+
+STYLE_NEGATIVE:
+不要二次元、动漫脸、赛璐璐上色、漫画线稿、真人照片、游戏立绘、塑料玩具感、风格混搭。
+
 生成 A01 角色资产板，包含 M01 FACE、M03 COSTUME、M05 BODY SCALE、M06 HAND GESTURE。
 ```
 
 #### EN_IMAGE2_PROMPT
 
 ```text
+STYLE_CONTRACT_LOCK:
+High-end 3D animated film character asset, not 2D anime, not anime illustration, not live-action photography, not game UI character art. A01 uses unified 3D materials, volumetric lighting, spatial perspective, refined edges, and controlled details.
+
+STYLE_NEGATIVE:
+No 2D anime, anime face, cel shading, manga line art, live-action photo, game character splash art, plastic toy look, or mixed styles.
+
 Generate the A01 character asset board with M01 FACE, M03 COSTUME, M05 BODY SCALE, and M06 HAND GESTURE.
 ```
 
@@ -45,12 +69,24 @@ Generate the A01 character asset board with M01 FACE, M03 COSTUME, M05 BODY SCAL
 #### ZH_IMAGE2_PROMPT
 
 ```text
+STYLE_CONTRACT_LOCK:
+高端 3D 动画电影场景资产，与 A01 使用同一 3D 材质语言、体积光、电影空间透视和受控色彩系统，不是动漫背景插画。
+
+STYLE_NEGATIVE:
+不要二次元背景、赛璐璐上色、漫画线稿、真人照片、游戏 UI 场景、塑料玩具感、风格混搭。
+
 生成 A03 场景资产板，包含 V01 ESTABLISHING、V04 CAMERA A、V05 CAMERA B、MAP。
 ```
 
 #### EN_IMAGE2_PROMPT
 
 ```text
+STYLE_CONTRACT_LOCK:
+High-end 3D animated film scene asset, matching A01 with the same 3D material language, volumetric lighting, cinematic spatial perspective, and controlled palette. Not anime background illustration.
+
+STYLE_NEGATIVE:
+No 2D anime background, cel shading, manga line art, live-action photo, game UI environment, plastic toy look, or mixed styles.
+
 Generate the A03 scene asset board with V01 ESTABLISHING, V04 CAMERA A, V05 CAMERA B, and MAP.
 ```
 
@@ -61,12 +97,24 @@ Generate the A03 scene asset board with V01 ESTABLISHING, V04 CAMERA A, V05 CAME
 #### ZH_IMAGE2_PROMPT
 
 ```text
+STYLE_CONTRACT_LOCK:
+高端 3D 动画电影道具资产，与 A01 和 A03 使用同一 3D 材质、能量光效、空间透视和柔和边缘，不是平面图标或动漫道具。
+
+STYLE_NEGATIVE:
+不要二次元道具、赛璐璐上色、漫画线稿、真人照片、游戏图标、塑料玩具感、风格混搭。
+
 生成 A05 道具资产板，包含 P01 HERO PROP、P04 ACTIVE STATE、P06 HAND LOGIC、P07 SCENE ANCHOR。
 ```
 
 #### EN_IMAGE2_PROMPT
 
 ```text
+STYLE_CONTRACT_LOCK:
+High-end 3D animated film prop asset, matching A01 and A03 with the same 3D materials, energy lighting, spatial perspective, and refined edges. Not flat icon art or anime prop art.
+
+STYLE_NEGATIVE:
+No 2D anime prop, cel shading, manga line art, live-action photo, game icon, plastic toy look, or mixed styles.
+
 Generate the A05 prop asset board with P01 HERO PROP, P04 ACTIVE STATE, P06 HAND LOGIC, and P07 SCENE ANCHOR.
 ```
 

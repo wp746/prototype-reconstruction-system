@@ -30,7 +30,8 @@ Version: `v1.0.0`
 10. Seedance 视频提示词必须明确资产优先级：资产图 > 干净故事板 > `SEEDANCE_MOTION_TEXT` > 逐镜文字 timing。
 11. `[REALISTIC CINEMA STYLE LOCK]` 必须根据当前项目最容易跑偏的方向动态编写。
 12. `[NEGATIVE PROMPT]` 只写当前真实风险，不堆旧污染项。
-13. 低于 95/100 不交付。
+13. 风格统一是硬门槛。没有 `STYLE_CONTRACT`，不得进入资产生产。
+14. 低于 95/100 不交付。
 
 ## 输入字段
 
@@ -76,6 +77,18 @@ STYLE_RISK:
 - likely_contamination:
 - likely_missing_shots:
 - final_frame_risk:
+
+STYLE_CONTRACT:
+- source_style_evidence:
+- render_style:
+- medium:
+- realism_level:
+- material_finish:
+- lighting_language:
+- lens_language:
+- color_palette:
+- forbidden_styles:
+- style_source: explicit / inferred_from_assets / inferred_from_reference / needs_user
 ```
 
 ## 前端交接标准化
@@ -91,7 +104,27 @@ assumptions:
 needs_model_completion: yes / no
 user_questions:
 handoff_ready: yes / no
+
+STYLE_CONTRACT:
+source_style_evidence:
+render_style:
+medium:
+realism_level:
+material_finish:
+lighting_language:
+lens_language:
+color_palette:
+forbidden_styles:
+style_source:
 ```
+
+风格是进入后端生产的硬门槛：
+
+1. 前端明确给出 `3D / 真人 / 动漫 / 卡通 / 超现实 / 定格 / 水墨 / 像素 / 纪录片` 等风格时，直接锁为 `render_style`。
+2. 前端没写风格但给了资产图、参考帧或场景/角色描述时，必须从物料中保守推断并写明证据。
+3. 物料和文字风格冲突时，必须先问用户哪个风格优先。
+4. 无法判断风格时，`handoff_ready: no`，只问最小问题，不生成资产提示词。
+5. `STYLE_RISK` 只描述风险，`STYLE_CONTRACT` 才是三阶段生产的统一母锁。
 
 处理规则：
 
@@ -108,10 +141,11 @@ handoff_ready: yes / no
 - shot_count 和 storyboard_layout 已知
 - 每个 SH 有 timecode、景别、构图、动作状态、运镜、动作方向、切点功能
 - in_state/action_chain/out_state 清楚
+- style_contract 已明确或可靠推断，包含风格、媒介、真实度、材质、光线、镜头、色彩和禁用风格
 - style_risk 包含风格跑偏、漏镜头、终帧风险
 ```
 
-如果缺少 `SHOT_PLAN`、`ASSET_PLAN` 或 `STYLE_RISK` 且无法保守推断，必须要求前端补齐，不得直接生成最终包。
+如果缺少 `SHOT_PLAN`、`ASSET_PLAN`、`STYLE_CONTRACT` 或 `STYLE_RISK` 且无法保守推断，必须要求前端补齐，不得直接生成最终包。
 
 ## 输出结构
 
@@ -157,6 +191,8 @@ handoff_ready: yes / no
 
 - `ZH_IMAGE2_PROMPT`
 - `EN_IMAGE2_PROMPT`
+- `STYLE_CONTRACT_LOCK`
+- `STYLE_NEGATIVE`
 - 资产编号。
 - 模块标签。
 - 后续 Seedance 引用计划。
@@ -187,6 +223,32 @@ A05 / P04 ACTIVE STATE
 A05 / P06 HAND LOGIC
 A05 / P07 SCENE ANCHOR
 ```
+
+### 资产风格合同
+
+角色、场景、道具的每一条 Image2 提示词都必须在开头写入 `STYLE_CONTRACT_LOCK`。它必须继承前端标准化后的 `STYLE_CONTRACT`，不能临时改风格。
+
+如果当前项目是 3D，必须明确写：
+
+```text
+STYLE_CONTRACT_LOCK:
+高端 3D 动画电影资产，不是二次元，不是动漫插画，不是真人照片，不是游戏 UI 立绘。角色、场景、道具都使用同一套 3D 材质、体积光、空间透视、柔和边缘和受控细节。
+
+STYLE_NEGATIVE:
+不要二次元、动漫脸、赛璐璐上色、漫画线稿、真人照片、游戏立绘、塑料玩具感、风格混搭。
+```
+
+英文版必须同步写：
+
+```text
+STYLE_CONTRACT_LOCK:
+High-end 3D animated film asset, not 2D anime, not anime illustration, not live-action photography, not game UI character art. Character, scene, and prop share the same 3D materials, volumetric lighting, spatial perspective, refined edges, and controlled details.
+
+STYLE_NEGATIVE:
+No 2D anime, anime face, cel shading, manga line art, live-action photo, game character splash art, plastic toy look, or mixed styles.
+```
+
+如果不是 3D，就根据当前项目替换变量，不能复用 3D 风格锁。
 
 ## 阶段二：干净故事板提示词
 
@@ -250,6 +312,8 @@ Seedance 提示词必须包含：
 
 `[REALISTIC CINEMA STYLE LOCK]` 写“要什么”，不是套话。它必须针对当前片子最容易跑偏的方向。
 
+它必须继承 `STYLE_CONTRACT`。3D 项目不能写成动漫或泛真人电影感；真人项目不能写成 3D 动画；动漫或卡通项目不能擅自加入 photoreal 材质，除非用户明确要求混合风格。
+
 示例：
 
 ```text
@@ -287,6 +351,8 @@ Seedance 提示词必须包含：
 ```text
 BACKEND_PRODUCTION_QA:
 - 是否只输出一个 .md 文件：是 / 否
+- STYLE_CONTRACT 是否已明确或可靠推断：是 / 否
+- 资产提示词是否全部包含 STYLE_CONTRACT_LOCK：是 / 否
 - 是否三阶段顺序完整：是 / 否
 - 是否全部双语：是 / 否
 - 绿色上传提醒是否在提示词外：是 / 否

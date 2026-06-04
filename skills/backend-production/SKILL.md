@@ -62,6 +62,18 @@ STYLE_RISK:
 - likely_contamination
 - likely_missing_shots
 - final_frame_risk
+
+STYLE_CONTRACT:
+- source_style_evidence
+- render_style
+- medium
+- realism_level
+- material_finish
+- lighting_language
+- lens_language
+- color_palette
+- forbidden_styles
+- style_source: explicit / inferred_from_assets / inferred_from_reference / needs_user
 ```
 
 ## Frontend Handoff Normalization
@@ -78,6 +90,30 @@ FRONTEND_HANDOFF_NORMALIZATION:
 - user_questions:
 - handoff_ready: yes / no
 ```
+
+Style is a hard entry gate. Before any asset prompt is written, normalize or obtain:
+
+```text
+STYLE_CONTRACT:
+- source_style_evidence:
+- render_style:
+- medium:
+- realism_level:
+- material_finish:
+- lighting_language:
+- lens_language:
+- color_palette:
+- forbidden_styles:
+- style_source: explicit / inferred_from_assets / inferred_from_reference / needs_user
+```
+
+Rules:
+
+1. If the frontend clearly says `3D`, `live-action`, `anime`, `cartoon`, `clay`, `pixel`, `ink`, `documentary`, or another visual medium, lock that as `render_style`.
+2. If the frontend does not explicitly name style but provides assets, screenshots, boards, or reference-frame descriptions, infer the closest style from the material and mark `style_source: inferred_from_assets` or `inferred_from_reference`.
+3. If style evidence conflicts, for example reference is 3D but the user asks anime, ask the user which style wins before production.
+4. If style cannot be inferred with confidence, set `handoff_ready: no` and ask for the minimum style input. Do not enter asset production.
+5. `STYLE_RISK` is not enough by itself. It describes possible failure. `STYLE_CONTRACT` defines what all assets, storyboards, and Seedance prompts must become.
 
 Use these rules:
 
@@ -97,10 +133,11 @@ BACKEND_READY_STANDARD:
 - every SH has timecode or estimated duration
 - every SH has shot_size, composition, action_state, camera_movement, action_direction, cut_function
 - in_state/action_chain/out_state are clear
+- style_contract includes render_style, medium, realism_level, material_finish, lighting_language, lens_language, color_palette, and forbidden_styles
 - style_risk includes likely drift and final_frame_risk
 ```
 
-If the user gives unstructured notes, infer conservatively and mark missing fields in the output preflight section. If `SHOT_PLAN`, `ASSET_PLAN`, or `STYLE_RISK` is absent and cannot be inferred, ask for it or produce only a preflight checklist, not the final package.
+If the user gives unstructured notes, infer conservatively and mark missing fields in the output preflight section. If `SHOT_PLAN`, `ASSET_PLAN`, `STYLE_CONTRACT`, or `STYLE_RISK` is absent and cannot be inferred, ask for it or produce only a preflight checklist, not the final package.
 
 ## Output Contract
 
@@ -163,6 +200,49 @@ A05 / P06 HAND LOGIC
 A05 / P07 SCENE ANCHOR
 ```
 
+## Asset Style Contract Rules
+
+Every `ZH_IMAGE2_PROMPT` and `EN_IMAGE2_PROMPT` for character, scene, and prop assets must include a visible `STYLE_CONTRACT_LOCK` block near the top of the prompt.
+
+The asset style lock must state:
+
+- exact render style and medium, for example `high-end 3D animated film`, `live-action cinematic realism`, `2D anime`, `cartoon`, `clay stop-motion`, or `surreal photoreal`.
+- material and surface behavior.
+- lighting language.
+- lens / perspective language.
+- color palette.
+- forbidden styles.
+
+If the intended style is 3D, asset prompts must explicitly say:
+
+```text
+STYLE_CONTRACT_LOCK:
+高端 3D 动画电影资产，不是二次元，不是动漫插画，不是真人照片，不是游戏 UI 立绘。角色、场景、道具都使用同一套 3D 材质、体积光、空间透视、柔和边缘和受控细节。
+```
+
+English version:
+
+```text
+STYLE_CONTRACT_LOCK:
+High-end 3D animated film asset, not 2D anime, not anime illustration, not live-action photography, not game UI character art. Character, scene, and prop share the same 3D materials, volumetric lighting, spatial perspective, refined edges, and controlled details.
+```
+
+If the intended style is not 3D, replace the variable parts with the current style. Do not reuse the 3D lock for anime, cartoon, photoreal, documentary, ink, clay, or surreal projects.
+
+Asset prompts must also include a short style-specific negative line. Example for 3D:
+
+```text
+STYLE_NEGATIVE:
+不要二次元、动漫脸、赛璐璐上色、漫画线稿、真人照片、游戏立绘、塑料玩具感、风格混搭。
+```
+
+English:
+
+```text
+STYLE_NEGATIVE:
+No 2D anime, anime face, cel shading, manga line art, live-action photo, game character splash art, plastic toy look, or mixed styles.
+```
+
 ## Clean Storyboard Rules
 
 Storyboard code:
@@ -200,6 +280,8 @@ All camera movement, action direction, speed, and cut functions go into:
 SEEDANCE_MOTION_TEXT
 ```
 
+The clean storyboard can be black-and-white, but it must still inherit the project `STYLE_CONTRACT` at the design level. For a 3D project, write the storyboard prompt as clean grayscale cinematic layout for 3D blocking and spatial composition, not anime manga panels.
+
 ## Seedance Prompt Rules
 
 Every Seedance prompt must include:
@@ -231,6 +313,8 @@ If storyboard conflicts with assets, follow assets.
 ## Dynamic Style Lock
 
 `[REALISTIC CINEMA STYLE LOCK]` writes what the image should become. It must be tailored to current drift risks.
+
+It must inherit `STYLE_CONTRACT`. If the project is 3D, this section is not allowed to drift into generic live-action realism or anime terms. If the project is live-action, do not use 3D animation terms. If the project is anime/cartoon, do not use photoreal texture language unless the user explicitly requested hybrid style.
 
 Examples:
 

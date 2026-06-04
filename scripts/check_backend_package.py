@@ -31,6 +31,9 @@ REQUIRED_TOKENS = [
     "ZH_SEEDANCE_PROMPT",
     "EN_SEEDANCE_PROMPT",
     "FRONTEND_HANDOFF_NORMALIZATION",
+    "STYLE_CONTRACT",
+    "STYLE_CONTRACT_LOCK",
+    "STYLE_NEGATIVE",
     "SEEDANCE_MOTION_TEXT",
     "REALISTIC CINEMA STYLE LOCK",
     "NEGATIVE PROMPT",
@@ -55,6 +58,19 @@ STALE_NEGATIVE_TERMS = [
     "故事板边框",
     "面板编号",
     "时间码文字",
+]
+
+STYLE_CONTRACT_FIELDS = [
+    "source_style_evidence",
+    "render_style",
+    "medium",
+    "realism_level",
+    "material_finish",
+    "lighting_language",
+    "lens_language",
+    "color_palette",
+    "forbidden_styles",
+    "style_source",
 ]
 
 GREEN_REMINDER_RE = re.compile(r"<span\s+style=\"color:#15803d;[^>]*>.*?</span>", re.S)
@@ -108,6 +124,22 @@ def check_package(path: Path) -> tuple[list[str], list[str]]:
 
     if "handoff_ready:" not in text:
         errors.append("missing `handoff_ready` in frontend normalization")
+
+    for field in STYLE_CONTRACT_FIELDS:
+        if field not in text:
+            errors.append(f"missing STYLE_CONTRACT field `{field}`")
+
+    style_lock_count = text.count("STYLE_CONTRACT_LOCK")
+    if style_lock_count < 6:
+        errors.append(
+            "missing asset style locks; expected STYLE_CONTRACT_LOCK in all CN/EN character, scene, and prop prompts"
+        )
+
+    style_negative_count = text.count("STYLE_NEGATIVE")
+    if style_negative_count < 6:
+        errors.append(
+            "missing asset style negatives; expected STYLE_NEGATIVE in all CN/EN character, scene, and prop prompts"
+        )
 
     if "REALISTIC CINEMA STYLE LOCK" in text:
         style_index = text.find("REALISTIC CINEMA STYLE LOCK")

@@ -22,6 +22,18 @@ assumptions:
 needs_model_completion:
 user_questions:
 handoff_ready:
+
+STYLE_CONTRACT:
+source_style_evidence:
+render_style:
+medium:
+realism_level:
+material_finish:
+lighting_language:
+lens_language:
+color_palette:
+forbidden_styles:
+style_source:
 ```
 
 ---
@@ -35,12 +47,24 @@ handoff_ready:
 #### ZH_IMAGE2_PROMPT
 
 ```text
+STYLE_CONTRACT_LOCK:
+[中文风格合同锁：明确 render_style / medium / realism_level / material_finish / lighting_language / lens_language / color_palette。若是 3D，必须写明高端 3D 动画电影资产，不是二次元，不是动漫插画，不是真人照片。]
+
+STYLE_NEGATIVE:
+[中文风格负面：只写当前风格最容易跑偏的方向，例如不要动漫脸、赛璐璐上色、真人照片、游戏立绘、塑料玩具感、风格混搭。]
+
 [中文角色资产提示词]
 ```
 
 #### EN_IMAGE2_PROMPT
 
 ```text
+STYLE_CONTRACT_LOCK:
+[English style contract lock: define render_style / medium / realism_level / material_finish / lighting_language / lens_language / color_palette. For 3D, state high-end 3D animated film asset, not 2D anime, not anime illustration, not live-action photography.]
+
+STYLE_NEGATIVE:
+[English style negative: only current drift risks, such as no anime face, cel shading, live-action photo, game splash art, plastic toy look, or mixed styles.]
+
 [English character asset prompt]
 ```
 
@@ -53,12 +77,24 @@ handoff_ready:
 #### ZH_IMAGE2_PROMPT
 
 ```text
+STYLE_CONTRACT_LOCK:
+[中文风格合同锁：必须与角色资产同一风格、同一材质语言、同一光线和色彩系统。]
+
+STYLE_NEGATIVE:
+[中文风格负面：禁止与 STYLE_CONTRACT 冲突的风格。]
+
 [中文场景资产提示词]
 ```
 
 #### EN_IMAGE2_PROMPT
 
 ```text
+STYLE_CONTRACT_LOCK:
+[English style contract lock: must match the character asset style, material language, lighting system, and palette.]
+
+STYLE_NEGATIVE:
+[English style negative: forbid styles that conflict with STYLE_CONTRACT.]
+
 [English scene asset prompt]
 ```
 
@@ -71,12 +107,24 @@ handoff_ready:
 #### ZH_IMAGE2_PROMPT
 
 ```text
+STYLE_CONTRACT_LOCK:
+[中文风格合同锁：必须与角色和场景资产同一风格、同一材质语言、同一光效逻辑。]
+
+STYLE_NEGATIVE:
+[中文风格负面：禁止与 STYLE_CONTRACT 冲突的风格。]
+
 [中文道具资产提示词]
 ```
 
 #### EN_IMAGE2_PROMPT
 
 ```text
+STYLE_CONTRACT_LOCK:
+[English style contract lock: must match the character and scene asset style, material language, and lighting logic.]
+
+STYLE_NEGATIVE:
+[English style negative: forbid styles that conflict with STYLE_CONTRACT.]
+
 [English prop asset prompt]
 ```
 
@@ -154,6 +202,7 @@ SH02: [camera movement, action direction, speed, cut function]
 [LIGHTING / VFX]
 
 [REALISTIC CINEMA STYLE LOCK]
+[必须继承 STYLE_CONTRACT，不得改写为另一个风格。]
 
 [DIALOGUE / VOICE PERFORMANCE]
 
@@ -184,6 +233,7 @@ SH02: [camera movement, action direction, speed, cut function]
 [LIGHTING / VFX]
 
 [REALISTIC CINEMA STYLE LOCK]
+[Must inherit STYLE_CONTRACT and must not rewrite the project into another style.]
 
 [DIALOGUE / VOICE PERFORMANCE]
 
@@ -201,6 +251,8 @@ BACKEND_PRODUCTION_QA:
 - 是否只输出一个 .md 文件：是 / 否
 - 前端交接是否已标准化或确认标准：是 / 否
 - 缺失字段是否已补齐，或已明确阻塞：是 / 否
+- STYLE_CONTRACT 是否已明确或可靠推断：是 / 否
+- 资产提示词是否全部包含 STYLE_CONTRACT_LOCK：是 / 否
 - 是否三阶段顺序完整：是 / 否
 - 是否全部双语：是 / 否
 - 绿色上传提醒是否在提示词外：是 / 否
