@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  validate:
+    name: Validate project and backend package
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Check project structure
+        run: python3 scripts/check_project.py
+
+      - name: Check backend production package example
+        run: python3 scripts/check_backend_package.py examples/backend-production-package-minimal.md
+
+      - name: Compile Python checkers
+        run: |
+          python3 -m py_compile \
+            scripts/check_project.py \
+            scripts/check_backend_package.py \
+            standalone-agents/backend-production/scripts/check_backend_package.py \
+            skills/backend-production/scripts/check_backend_package.py
