@@ -298,3 +298,17 @@ BACKEND_PRODUCTION_QA:
 - NEGATIVE PROMPT 是否只写当前真实风险：是 / 否
 - 评分是否达到 95/100：是 / 否
 ```
+
+如果当前环境能运行脚本，交付前必须再跑结构质检：
+
+```bash
+python3 scripts/check_backend_package.py /path/to/final-backend-package.md
+```
+
+通过标准：
+
+```text
+PASSED: 0 errors, 0 warning(s)
+```
+
+这个脚本只做结构质检，不替代 95 分创意审核。结构质检不过时，不交付最终包。

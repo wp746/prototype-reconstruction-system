@@ -274,3 +274,17 @@ BACKEND_PRODUCTION_QA:
 - NEGATIVE PROMPT targets current risks only
 - score >= 95/100
 ```
+
+If script execution is available, run the structural package checker before handoff:
+
+```bash
+python3 scripts/check_backend_package.py /path/to/final-backend-package.md
+```
+
+Required result:
+
+```text
+PASSED: 0 errors, 0 warning(s)
+```
+
+This checker only validates the production-package structure. It does not replace creative QA, shot DNA QA, asset continuity QA, or the `95/100` handoff gate. If the checker fails, do not deliver the final package; fix the package first.

@@ -53,6 +53,23 @@
 - [templates/FRONTEND_HANDOFF_NORMALIZATION.md](templates/FRONTEND_HANDOFF_NORMALIZATION.md)：模糊前端交接的预检与补齐标准。
 - [schemas/backend-production-input.schema.json](schemas/backend-production-input.schema.json)：建议输入字段 schema。
 - [examples/example-package-skeleton.md](examples/example-package-skeleton.md)：最终交付文件骨架示例。
+- [scripts/check_backend_package.py](scripts/check_backend_package.py)：最终 Markdown 生产包结构质检脚本。
+
+## 交付前质检
+
+生成最终 `.md` 生产包后，先跑结构检查：
+
+```bash
+python3 scripts/check_backend_package.py /path/to/final-backend-package.md
+```
+
+如果在主仓库根目录中使用，也可以跑：
+
+```bash
+python3 scripts/check_backend_package.py examples/backend-production-package-minimal.md
+```
+
+检查器只判断工业结构，不替代创意审核。它会重点拦截：缺少三阶段、缺少双语提示词、绿色上传提醒写进提示词、缺少 `SEEDANCE_MOTION_TEXT`、缺少动态风格锁、负面提示词堆旧污染项等问题。
 
 ## 作为 Skill 分享给同事
 
@@ -72,4 +89,10 @@ skills/backend-production/
 
 ```text
 使用 $backend-production，把这份 B 线 handoff 生成一个双语后端生产 Markdown 包。
+```
+
+复制 skill 目录后，如果同事要验最终包，可以在 `skills/backend-production/` 内运行：
+
+```bash
+python3 scripts/check_backend_package.py /path/to/final-backend-package.md
 ```
